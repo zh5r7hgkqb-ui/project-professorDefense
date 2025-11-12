@@ -31,6 +31,7 @@ typedef struct Quiz {
     char question[256]; // 문제 내용
     char answer[50];    // 정답
     char hint[100];     // 힌트 문구 (있을 경우)
+    int difficulty;       // 난이도(학년) 추가
 } *pre, *cur, *newquiz, *first;
 
 
