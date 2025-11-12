@@ -10,29 +10,28 @@ typedef struct {
     int hp;             // 현재 체력
     int maxHp;          // 최대 체력
     int hintCount;      // 남은 힌트 개수
-    int itemCount;      // 소지한 아이템 개수
 } Player;
 
 
 // ================================
 // 📌 교수님(적) 구조체
 // ================================
-typedef struct {
+typedef struct Professor{
     char name[50];      // 교수님 이름    
     int hp;             // 현재 체력
     int maxHp;          // 최대 체력
-} Professor;
+}; 
 
 
 // ================================
 // 📌 퀴즈(문제) 구조체
 // ================================
 // asset/quiz Lv1.txt 등에서 문제를 불러와 저장
-typedef struct {
+typedef struct Quiz {
     char question[256]; // 문제 내용
     char answer[50];    // 정답
     char hint[100];     // 힌트 문구 (있을 경우)
-} Quiz;
+} *pre, *cur, *newquiz, *first;
 
 
 // ================================
