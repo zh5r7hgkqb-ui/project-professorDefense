@@ -9,6 +9,7 @@
 // 1,5 + 3 = ?,8,덧셈 문제입니다.
 // -------------------------------------------
 
+// 파일 열기
 int loadQuizFile(const char *filename, Quiz **quizList, int grade) {
     FILE *fp = fopen(filename, "r");
     if (!fp) {
@@ -16,13 +17,16 @@ int loadQuizFile(const char *filename, Quiz **quizList, int grade) {
         return 0;
     }
 
-    Quiz *head = NULL, *tail = NULL;
+    //연결 리스트의 head와 tail 초기화
+    Quiz *head = NULL, *tail = NULL; 
+    //불러온 문제 개수를 세는 변수
     int count = 0;
+    //한줄씩 읽어올 버퍼
     char line[512];
 
-    while (fgets(line, sizeof(line), fp)) {
-        Quiz *newNode = (Quiz *)malloc(sizeof(Quiz));
-        if (!newNode) {
+    while (fgets(line, sizeof(line), fp)) {           // 파일에서 문제 한 줄 읽기
+        Quiz *newNode = (Quiz *)malloc(sizeof(Quiz)); // 그 문제를 저장할 새 구조체 생성
+        if (!newNode) {                               // 메모리 확보 실패시 종료
             printf("❌ 메모리 할당 실패!\n");
             fclose(fp);
             return count;
@@ -70,3 +74,4 @@ void freeQuizList(Quiz *quizList) {
         free(temp);
     }
 }
+
