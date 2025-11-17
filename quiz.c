@@ -9,9 +9,9 @@
 // 1,5 + 3 = ?,8,덧셈 문제입니다.
 // -------------------------------------------
 
-// 파일 열기
+
 int loadQuizFile(const char *filename, Quiz **quizList, int grade) {
-    FILE *fp = fopen(filename, "r");
+    FILE *fp = fopen(filename, "r"); // 파일 열기
     if (!fp) {
         printf("❌ 파일을 열 수 없습니다: %s\n", filename);
         return 0;
@@ -74,5 +74,6 @@ void freeQuizList(Quiz *quizList) {
         free(temp);
     }
 }
+
 
 
