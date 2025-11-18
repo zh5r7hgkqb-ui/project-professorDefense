@@ -50,7 +50,8 @@ void showResult(const BattleState *bs);
 // -------------------------------------
 
 // 일정 확률(10~20%)로 아이템 드롭 
-void dropItem(Player *player);
+// 일정 확률(10~20%)로 아이템 드롭 
+int dropItem(Player *player);
 
 // 아이템 효과 적용
 void useItem(Player *player, const Item *item);
@@ -68,4 +69,5 @@ void applyItemEffect(BattleState *state, Item item);
 void tryDropItem(BattleState *state);
 
 #endif
+
 
