@@ -59,7 +59,13 @@ void useItem(Player *player, const Item *item);
 void useHint(Player *player, const Quiz *quiz);
 
 
-// 미니게임 시스템 (BattleState 기반)
+// 미니게임 시스템 
 // -------------------------------------
-//추후 작성 예정..
+Item createItem(int type);
+int dropItemChance(void);
+Item getRandomItem(void);
+void applyItemEffect(BattleState *state, Item item);
+void tryDropItem(BattleState *state);
+
 #endif
+
