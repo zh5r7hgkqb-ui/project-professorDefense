@@ -13,7 +13,7 @@
 int loadQuizFile(const char *filename, Quiz **quizList, int grade) {
     FILE *fp = fopen(filename, "r"); // 파일 열기
     if (!fp) {
-        printf("❌ 파일을 열 수 없습니다: %s\n", filename);
+        printf("파일을 열 수 없습니다: %s\n", filename);
         return 0;
     }
 
@@ -27,7 +27,7 @@ int loadQuizFile(const char *filename, Quiz **quizList, int grade) {
     while (fgets(line, sizeof(line), fp)) {           // 파일에서 문제 한 줄 읽기
         Quiz *newNode = (Quiz *)malloc(sizeof(Quiz)); // 그 문제를 저장할 새 구조체 생성
         if (!newNode) {                               // 메모리 확보 실패시 종료
-            printf("❌ 메모리 할당 실패!\n");
+            printf("메모리 할당 실패!\n");
             fclose(fp);
             return count;
         }
@@ -59,7 +59,7 @@ int loadQuizFile(const char *filename, Quiz **quizList, int grade) {
 
     fclose(fp);
     *quizList = head; // 불러온 리스트를 반환
-    printf("✅ %d개의 문제를 불러왔습니다.\n", count);
+    printf("%d개의 문제를 불러왔습니다.\n", count);
     return count;
 }
 
@@ -74,6 +74,7 @@ void freeQuizList(Quiz *quizList) {
         free(temp);
     }
 }
+
 
 
 
