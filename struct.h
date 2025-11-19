@@ -16,11 +16,11 @@ typedef struct {
 
 //  교수님(적) 구조체
 // ================================
-typedef struct Professor{
+typedef struct {
     char name[50];      // 교수님 이름    
     int hp;             // 현재 체력
     int maxHp;          // 최대 체력
-}; 
+}Professer; 
 
 
 
