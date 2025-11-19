@@ -24,7 +24,7 @@ void printHpBar(int current, int max)
 
 int askQuestion(BattleState *bs, int index)
 {
-    Quiz *q = bs->quizList;
+    struct Quiz *q = bs->quizList;
 
     // index번째 문제까지 이동
     for (int i = 0; i < index; i++) {
@@ -163,3 +163,4 @@ void startBattle(BattleState *bs)
 
     showResult(bs);
 }
+
