@@ -20,7 +20,7 @@ typedef struct {
     char name[50];      // 교수님 이름    
     int hp;             // 현재 체력
     int maxHp;          // 최대 체력
-}Professer; 
+}Professor; 
 
 
 
