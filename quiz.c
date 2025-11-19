@@ -1,4 +1,5 @@
 #include "gameutils.h"
+#pragma execution_character_set("utf-8")
 
 // -------------------------------------------
 // 퀴즈 파일 불러오기 
@@ -10,7 +11,7 @@
 // -------------------------------------------
 
 
-int loadQuizFile(const char *filename, Quiz **quizList, int grade) {
+int loadQuizFile(const char *filename, struct Quiz **quizList, int grade) {
     FILE *fp = fopen(filename, "r"); // 파일 열기
     if (!fp) {
         printf("파일을 열 수 없습니다: %s\n", filename);
@@ -18,14 +19,14 @@ int loadQuizFile(const char *filename, Quiz **quizList, int grade) {
     }
 
     //연결 리스트의 head와 tail 초기화
-    Quiz *head = NULL, *tail = NULL; 
+    struct Quiz *head = NULL, *tail = NULL; 
     //불러온 문제 개수를 세는 변수
     int count = 0;
     //한줄씩 읽어올 버퍼
     char line[512];
 
     while (fgets(line, sizeof(line), fp)) {           // 파일에서 문제 한 줄 읽기
-        Quiz *newNode = (Quiz *)malloc(sizeof(Quiz)); // 그 문제를 저장할 새 구조체 생성
+        struct Quiz *newNode = (struct Quiz *)malloc(sizeof(struct Quiz)); // 그 문제를 저장할 새 구조체 생성
         if (!newNode) {                               // 메모리 확보 실패시 종료
             printf("메모리 할당 실패!\n");
             fclose(fp);
@@ -66,8 +67,8 @@ int loadQuizFile(const char *filename, Quiz **quizList, int grade) {
 // -------------------------------------------
 // 퀴즈 메모리 해제
 // -------------------------------------------
-void freeQuizList(Quiz *quizList) {
-    Quiz *temp;
+void freeQuizList(struct Quiz *quizList) {
+    struct Quiz *temp;
     while (quizList != NULL) {
         temp = quizList;
         quizList = quizList->next;
