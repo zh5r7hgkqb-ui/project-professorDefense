@@ -21,10 +21,10 @@ void initGame(BattleState *bs);
 //  - quizList: 퀴즈 배열을 저장할 포인터
 //  - grade: 현재 플레이어 학년
 //  - 반환값: 로드된 문제 수
-int loadQuizFile(const char *filename, Quiz **quizList, int grade);
+int loadQuizFile(const char *filename, struct Quiz **quizList, int grade);
 
 // 메모리 해제 (종료 시 퀴즈 배열 free)
-void freeQuizList(Quiz *quizList);
+void freeQuizList(struct Quiz *quizList);
 
 
 
@@ -57,7 +57,7 @@ int dropItem(Player *player);
 void useItem(Player *player, const Item *item);
 
 // 힌트 사용 (힌트 출력 및 힌트 수 감소)
-void useHint(Player *player, const Quiz *quiz);
+void useHint(Player *player, const struct Quiz *quiz);
 
 
 // 미니게임 시스템 
@@ -69,5 +69,6 @@ void applyItemEffect(BattleState *state, Item item);
 void tryDropItem(BattleState *state);
 
 #endif
+
 
 
