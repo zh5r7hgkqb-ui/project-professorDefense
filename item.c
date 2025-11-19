@@ -72,3 +72,12 @@ int dropItem(Player *player)
 
     return drop->effectType;
 }
+
+void useHint(Player *player, const struct Quiz *quiz){
+    if (player->hintCount > 0) {
+        printf("힌트: %s\n", quiz->hint);
+        player->hintCount--;
+    } else {
+        printf("사용 가능한 힌트가 없습니다!\n");
+    }
+}
