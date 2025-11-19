@@ -56,7 +56,7 @@ typedef struct {
 typedef struct {
     Player student;       // 플레이어 정보
     Professor professor;  // 교수님 정보
-    Quiz* quizList;       // 퀴즈 배열 (파일에서 로드됨)
+    struct Quiz* quizList;       // 퀴즈 배열 (파일에서 로드됨)
     int quizCount;        // 퀴즈 총 개수
     int currentQuiz;      // 현재 진행 중인 문제 인덱스
 } BattleState;
