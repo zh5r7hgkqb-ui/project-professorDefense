@@ -3,6 +3,7 @@
 #include <time.h>
 #include "gameutils.h"
 #include <locale.h>
+#include <windows.h>
 
 // -------------------------------------------
 // 난수 초기화
@@ -15,9 +16,16 @@ void initRandomSeed(void) {
 // 게임 초기화
 // -------------------------------------------
 void initGame(BattleState *bs) {
-    printf("==============================\n");
-    printf("교수님을 무너트려라!\n");
-    printf("==============================\n");
+    //입출력 인코딩 UTF-8 설정
+    SetConsoleOutputCP(CP_UTF8);
+    SetConsoleCP(CP_UTF8);
+
+    //메인 메뉴 파일 열기 및 출력
+    FILE *mainmenu=fopen(mainmenu,"r");
+    char buf[4096];
+    while (fgets(buf, sizeof(buf), mainmenu)) {
+        printf("%s", buf);
+    }
 
     printf("학생 이름을 입력하세요: ");
     scanf("%s", bs->student.name);
