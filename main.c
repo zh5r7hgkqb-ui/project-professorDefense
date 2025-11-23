@@ -21,11 +21,12 @@ void initGame(BattleState *bs) {
     SetConsoleCP(CP_UTF8);
 
     //메인 메뉴 파일 열기 및 출력
-    FILE *mainmenu=fopen(mainmenu,"r");
-    char buf[4096];
-    while (fgets(buf, sizeof(buf), mainmenu)) {
-        printf("%s", buf);
+    FILE *mainmenu=fopen("mainmenu.txt","r");
+    char mainmenuarr[4096];
+    while (fgets(mainmenuarr, sizeof(mainmenuarr), mainmenu)) {
+        printf("%s", mainmenuarr);
     }
+    fclose(mainmenu);
 
     printf("학생 이름을 입력하세요: ");
     scanf("%s", bs->student.name);
