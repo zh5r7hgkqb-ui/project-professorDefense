@@ -4,6 +4,7 @@
 #include "struct.h"
 
 // 미니게임 함수 선언
+int TimeGame();
 int miniGame_Sequence();
 int minigame_minesweeper();
 int RockPaperScissor();
