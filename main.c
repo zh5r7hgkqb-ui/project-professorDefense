@@ -18,7 +18,7 @@ void initRandomSeed(void) {
 void initGame(BattleState *bs) {
 
     //메인 메뉴 파일 출력
-    FILE *mainmenu=fopen("mainmenu.txt","r");
+    FILE *mainmenu=fopen("asset/mainmenu.txt","r");
     if (mainmenu) {
         char mainmenuarr[4096];
         while (fgets(mainmenuarr, sizeof(mainmenuarr), mainmenu)) {
@@ -27,7 +27,7 @@ void initGame(BattleState *bs) {
         fclose(mainmenu);
     }
 
-    printf("학생 이름을 입력하세요: ");
+    printf("\n학생 이름을 입력하세요: ");
     scanf("%s", bs->student.name);
 
     do {

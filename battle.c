@@ -91,22 +91,22 @@ void showResult(const BattleState *bs)
     printf("\n==============================\n");
 
     if (bs->student.hp <= 0) {
-        FILE *failure=fopen("failure.txt","r");
+        FILE *failure=fopen("asset/failure.txt","r");
         char failurearr[4096];
         while (fgets(failurearr, sizeof(failurearr), failure)) {
             printf("%s", failurearr);
         }
         fclose(failure);
-        printf("패배... 교수님의 강의는 너무 어려웠다.\n");
+        printf("\n 패배... 교수님의 강의는 너무 어려웠다.\n");
     }
     else if (bs->professor.hp <= 0) {
-        FILE *success=fopen("success.txt","r");
+        FILE *success=fopen("asset/success.txt","r");
         char successarr[4096];
         while (fgets(successarr, sizeof(successarr), success)) {
             printf("%s", successarr);
         }
         fclose(success);
-        printf(" 승리! 교수님을 무찔렀다!\n");
+        printf("\n 승리! 교수님을 무찔렀다!\n");
         printf(" 당신의 학점을 지켜냈습니다!\n");
     }
     else {
