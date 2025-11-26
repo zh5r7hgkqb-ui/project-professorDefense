@@ -16,17 +16,16 @@ void initRandomSeed(void) {
 // 게임 초기화
 // -------------------------------------------
 void initGame(BattleState *bs) {
-    //입출력 인코딩 UTF-8 설정
-    SetConsoleOutputCP(CP_UTF8);
-    SetConsoleCP(CP_UTF8);
 
-    //메인 메뉴 파일 열기 및 출력
+    //메인 메뉴 파일 출력
     FILE *mainmenu=fopen("mainmenu.txt","r");
-    char mainmenuarr[4096];
-    while (fgets(mainmenuarr, sizeof(mainmenuarr), mainmenu)) {
-        printf("%s", mainmenuarr);
+    if (mainmenu) {
+        char mainmenuarr[4096];
+        while (fgets(mainmenuarr, sizeof(mainmenuarr), mainmenu)) {
+            printf("%s", mainmenuarr);
+        }
+        fclose(mainmenu);
     }
-    fclose(mainmenu);
 
     printf("학생 이름을 입력하세요: ");
     scanf("%s", bs->student.name);
@@ -46,16 +45,25 @@ void initGame(BattleState *bs) {
     bs->professor.maxHp = 20 + (bs->student.grade - 1) * 10;
     bs->professor.hp = bs->professor.maxHp;
 
-    printf("\n 학생 %s (%d학년) 전투를 준비하세요!\n", bs->student.name, bs->student.grade);
+    printf("\n 학생 %s (%d학년) 전투를 준비하세요!\n",
+           bs->student.name, bs->student.grade);
     printf("교수님 HP: %d\n", bs->professor.maxHp);
     printf("==============================\n");
 }
 
 // -------------------------------------------
-// 메인 함수
+// 메인 함수 (UTF-8 완전 지원 버전)
 // -------------------------------------------
 int main(void) {
-    setlocale(LC_ALL, "");
+
+    // ========================================
+    // 🔥 한글 깨짐 해결 (이 3줄이 핵심)
+    // ========================================
+    setlocale(LC_ALL, "ko_KR.UTF-8");
+    SetConsoleOutputCP(CP_UTF8);
+    SetConsoleCP(CP_UTF8);
+    // ========================================
+
     BattleState game;
 
     initRandomSeed();  // 난수 초기화
