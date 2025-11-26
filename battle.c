@@ -50,7 +50,7 @@ int askQuestion(BattleState *bs, int index)
     }
 
     char ans[100];
-    printf("정답 입력: ");
+    printf("정답 입력(o/x): ");
     scanf("%s", ans);
 
     if (strcmp(ans, q->answer) == 0) {
@@ -256,3 +256,4 @@ void startBattle(BattleState *bs)
 
     showResult(bs);
 }
+
