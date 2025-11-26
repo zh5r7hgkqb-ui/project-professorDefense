@@ -1,3 +1,4 @@
+#include "MiniGame.h"
 #include <stdio.h>
 #include <conio.h>
 #include <time.h>
@@ -10,7 +11,7 @@ void gotoxy(int x, int y) {
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
 }
 
-int main() {
+int TimeGame() {
     SetConsoleOutputCP(CP_UTF8);
     SetConsoleCP(CP_UTF8);
 
