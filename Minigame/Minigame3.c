@@ -6,11 +6,17 @@
 #define SIZE 5
 #define MINES 3
 
+// ---------------------------
+// 지뢰찾기 게임 구조체
+// ---------------------------
 typedef struct {
-    int board[SIZE][SIZE];     // 실제 지뢰판 (-1 = mine, 0~8 = 주변 지뢰 수)
-    int opened[SIZE][SIZE];    // 플레이어가 연 칸 (0=닫힘, 1=열림)
+    int board[SIZE][SIZE];  
+    int opened[SIZE][SIZE];
 } Minesweeper;
 
+// ---------------------------
+// 함수 선언 (모듈용)
+// ---------------------------
 void mines_init(Minesweeper *g);
 void mines_placeMines(Minesweeper *g);
 void mines_calcNumbers(Minesweeper *g);
@@ -19,20 +25,25 @@ void mines_print(Minesweeper *g);
 int  mines_open(Minesweeper *g, int r, int c);
 int  mines_checkWin(Minesweeper *g);
 
+// ---------------------------
+// 모듈 형태의 미니게임 엔트리
+// ---------------------------
 int minigame_minesweeper() {
+    Minesweeper g;
     int r, c;
     int gameOver = 0;
 
     srand(time(NULL));
-    initBoard();
-    placeMines();
-    calculateNumbers();
 
-    printf("-----지뢰찾기 미니게임-----\n");
+    mines_init(&g);
+    mines_placeMines(&g);
+    mines_calcNumbers(&g);
+
+    printf("----- 지뢰찾기 미니게임 -----\n");
 
     while (!gameOver) {
-        printBoard();
-        printf("열 좌표 입력 (행 열): ");
+        mines_print(&g);
+        printf("행 열 입력: ");
         scanf("%d %d", &r, &c);
 
         if (r < 0 || r >= SIZE || c < 0 || c >= SIZE) {
@@ -40,26 +51,26 @@ int minigame_minesweeper() {
             continue;
         }
 
-        if (!openCell(r, c)) {  
-            printf("\n 지뢰를 밟았습니다!(Game Over)\n");
+        if (!mines_open(&g, r, c)) {
+            printf("\n 지뢰를 밟았습니다! (Game Over)\n");
             gameOver = 1;
             break;
         }
 
-        if (checkWin()) {
-            printf("\n 모든 칸을 열었습니다!(Win!)\n");
+        if (mines_checkWin(&g)) {
+            printf("\n 승리했습니다!(Win!)\n");
             break;
         }
     }
 
-    // 최종 지뢰판 공개
+    // 정답판 출력
     printf("\n=== 실제 지뢰판 ===\n");
     for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE; j++) {
-            if (board[i][j] == -1)
+            if (g.board[i][j] == -1)
                 printf(" * ");
             else
-                printf(" %d ", board[i][j]);
+                printf(" %d ", g.board[i][j]);
         }
         printf("\n");
     }
@@ -67,50 +78,48 @@ int minigame_minesweeper() {
     return 0;
 }
 
-void initBoard() {
+// ---------------------------
+// 모듈 내부 함수
+// ---------------------------
+void mines_init(Minesweeper *g) {
     for (int i = 0; i < SIZE; i++)
         for (int j = 0; j < SIZE; j++)
-            board[i][j] = opened[i][j] = 0;
+            g->board[i][j] = g->opened[i][j] = 0;
 }
 
-void placeMines() {
+void mines_placeMines(Minesweeper *g) {
     int count = 0;
     while (count < MINES) {
         int r = rand() % SIZE;
         int c = rand() % SIZE;
-
-        if (board[r][c] != -1) {
-            board[r][c] = -1;
+        if (g->board[r][c] != -1) {
+            g->board[r][c] = -1;
             count++;
         }
     }
 }
 
-void calculateNumbers() {
-    for (int i = 0; i < SIZE; i++) {
-        for (int j = 0; j < SIZE; j++) {
-            if (board[i][j] == -1) continue;
-            board[i][j] = countMines(i, j);
-        }
-    }
+void mines_calcNumbers(Minesweeper *g) {
+    for (int i = 0; i < SIZE; i++)
+        for (int j = 0; j < SIZE; j++)
+            if (g->board[i][j] != -1)
+                g->board[i][j] = mines_count(g, i, j);
 }
 
-int countMines(int r, int c) {
+int mines_count(Minesweeper *g, int r, int c) {
     int cnt = 0;
-    for (int dr = -1; dr <= 1; dr++) {
+    for (int dr = -1; dr <= 1; dr++)
         for (int dc = -1; dc <= 1; dc++) {
             int nr = r + dr;
             int nc = c + dc;
-            if (nr >= 0 && nr < SIZE && nc >= 0 && nc < SIZE) {
-                if (board[nr][nc] == -1)
+            if (nr >= 0 && nr < SIZE && nc >= 0 && nc < SIZE)
+                if (g->board[nr][nc] == -1)
                     cnt++;
-            }
         }
-    }
     return cnt;
 }
 
-void printBoard() {
+void mines_print(Minesweeper *g) {
     printf("\n   ");
     for (int i = 0; i < SIZE; i++)
         printf(" %d ", i);
@@ -119,8 +128,8 @@ void printBoard() {
     for (int i = 0; i < SIZE; i++) {
         printf("%d: ", i);
         for (int j = 0; j < SIZE; j++) {
-            if (opened[i][j])
-                printf(" %d ", board[i][j]);
+            if (g->opened[i][j])
+                printf(" %d ", g->board[i][j]);
             else
                 printf(" # ");
         }
@@ -129,24 +138,21 @@ void printBoard() {
     printf("\n");
 }
 
-int openCell(int r, int c) {
-    if (opened[r][c]) return 1; // 이미 열림
-
-    opened[r][c] = 1;
-
-    if (board[r][c] == -1)  
-        return 0;   // 지뢰 → 게임오버
-
+int mines_open(Minesweeper *g, int r, int c) {
+    if (g->opened[r][c]) return 1;
+    g->opened[r][c] = 1;
+    if (g->board[r][c] == -1)
+        return 0;
     return 1;
 }
 
-int checkWin() {
+int mines_checkWin(Minesweeper *g) {
     int safeCells = SIZE * SIZE - MINES;
     int openedCount = 0;
 
     for (int i = 0; i < SIZE; i++)
         for (int j = 0; j < SIZE; j++)
-            if (opened[i][j] && board[i][j] != -1)
+            if (g->opened[i][j] && g->board[i][j] != -1)
                 openedCount++;
 
     return openedCount == safeCells;
