@@ -1,4 +1,5 @@
 #include "gameutils.h"
+#include "MiniGame.h"
 #include <stdio.h>
 #include <string.h>
 #pragma execution_character_set("utf-8")
@@ -183,3 +184,4 @@ void startBattle(BattleState *bs)
 
     showResult(bs);
 }
+
