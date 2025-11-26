@@ -2,62 +2,58 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include <string.h>
-#include <windows.h>   // Sleep() 사용
+#include <windows.h>
 
-// --------------------------------------------------
-//  순서 기억 미니게임 (Sequence Memory Game)
-//  - 랜덤 문자 3개 제시 후 숨김
-//  - 그대로 입력하면 성공
-//  - 성공 시 HP +5 회복
-// --------------------------------------------------
+#pragma execution_character_set("utf-8")
 
-int sequenceMiniGame(Player *s)
+int miniGame_Sequence()
 {
-    char seq[4];        
-    char user[20];
+    SetConsoleOutputCP(CP_UTF8);
+    SetConsoleCP(CP_UTF8);
 
-    const char pool[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-    int poolSize = strlen(pool);
+    srand((unsigned int)time(NULL));
 
-    srand((unsigned)time(NULL));
+    int length = 5;
+    int seq[10];
+    int answer[10];
 
-    // 1) 3글자 랜덤 생성
-    for (int i = 0; i < 3; i++) {
-        seq[i] = pool[rand() % poolSize];
+    printf("==============================\n");
+    printf("🧠 순서 기억 미니게임\n");
+    printf("제시되는 숫자들을 순서대로 입력하세요!\n");
+    printf("아무 키나 누르면 시작합니다.\n");
+    printf("==============================\n");
+    _getch();
+    system("cls");
+
+    // 수열 생성
+    for (int i = 0; i < length; i++) {
+        seq[i] = rand() % 9 + 1;
     }
-    seq[3] = '\0';
 
-    printf("\n========================================\n");
-    printf("           🎮 순서 기억 미니게임\n");
-    printf("========================================\n");
-    printf("화면에 잠깐 보이는 3글자를 그대로 입력하세요!\n\n");
-
-    // 2) 1초간 제시
-    printf(">>> 제시 문자:  %s\n", seq);
-    Sleep(1200);
-
-    // 3) 화면 지우기 효과
-    for (int i = 0; i < 25; i++) printf("\n");
-
-    // 4) 입력 요청
-    printf("입력>> ");
-    scanf("%s", user);
-
-    // 5) 판정
-    if (strcmp(seq, user) == 0) {
-        printf("\n🎉 성공했습니다!\n");
-        printf("보상: HP +5 회복!\n");
-
-        s->hp += 5;
-        if (s->hp > s->maxHp)
-            s->hp = s->maxHp;
-
-        return 1;
+    printf("👇 아래 숫자를 순서대로 기억하세요!\n\n");
+    for (int i = 0; i < length; i++) {
+        printf("%d ", seq[i]);
+        Sleep(700);
     }
-    else {
-        printf("\n❌ 실패했습니다!\n");
-        printf("정답은 %s 였습니다.\n", seq);
-        return 0;
+
+    Sleep(1500);
+    system("cls");
+
+    printf("이제 순서대로 입력하세요!\n");
+
+    for (int i = 0; i < length; i++) {
+        printf("[%d] 번째 숫자: ", i + 1);
+        scanf("%d", &answer[i]);
     }
+
+    // 판정
+    for (int i = 0; i < length; i++) {
+        if (seq[i] != answer[i]) {
+            printf("\n❌ 틀렸습니다!\n");
+            return 0;   // 실패
+        }
+    }
+
+    printf("\n🎉 성공! 완벽하게 기억했습니다!\n");
+    return 1; // 성공
 }
