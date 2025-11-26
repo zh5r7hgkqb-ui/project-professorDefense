@@ -88,6 +88,7 @@ void printBattleStatus(const BattleState *bs)
 // 전투 결과 출력
 void showResult(const BattleState *bs)
 {
+    system("cls");
     printf("\n==============================\n");
 
     if (bs->student.hp <= 0) {
@@ -121,10 +122,12 @@ void showResult(const BattleState *bs)
 // 전투 루프 (미니게임 포함 최종 버전)
 void startBattle(BattleState *bs)
 {
+    bs->correctStreak = 0;
     printf("\n전투 시작! 교수님이 나타났다!\n");
 
     while (bs->student.hp > 0 && bs->professor.hp > 0)
     {
+        system("cls");
         printBattleStatus(bs);
 
         int correct = askQuestion(bs, bs->currentQuiz);

@@ -30,10 +30,7 @@ static Item itemList[3] = {
 
 int dropItem(Player *player)
 {
-    int r = rand() % 100;
-    if (r >= 20) {
-        return 0; // 20% 미만일 때만 드랍
-    }
+   
 
     // 랜덤 아이템 선택
     int idx = rand() % 3;
