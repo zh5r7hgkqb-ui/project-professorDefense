@@ -11,13 +11,13 @@ typedef struct {
     int opened[SIZE][SIZE];    // 플레이어가 연 칸 (0=닫힘, 1=열림)
 } Minesweeper;
 
-void initBoard();
-void placeMines();
-void calculateNumbers();
-int countMines(int r, int c);
-void printBoard();
-int openCell(int r, int c);
-int checkWin();
+void mines_init(Minesweeper *g);
+void mines_placeMines(Minesweeper *g);
+void mines_calcNumbers(Minesweeper *g);
+int  mines_count(Minesweeper *g, int r, int c);
+void mines_print(Minesweeper *g);
+int  mines_open(Minesweeper *g, int r, int c);
+int  mines_checkWin(Minesweeper *g);
 
 int minigame_minesweeper() {
     int r, c;
