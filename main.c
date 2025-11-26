@@ -33,6 +33,15 @@ void initGame(BattleState *bs) {
 
     do {
         printf("학년을 입력하세요 (1~4): ");
+        if (scanf("%d", &bs->student.grade) != 1) {
+            
+            printf("잘못된 입력입니다. 1~4 사이의 숫자를 입력해주세요.\n");
+
+            int c;
+            while ((c = getchar()) != '\n' && c != EOF); 
+       
+            continue; 
+        }
         scanf("%d", &bs->student.grade);
     } while (bs->student.grade < 1 || bs->student.grade > 4);
 
@@ -88,3 +97,4 @@ int main(void) {
 
     return 0;
 }
+
