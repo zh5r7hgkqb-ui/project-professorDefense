@@ -7,6 +7,6 @@
 int sequenceMiniGame(Player *s);
 int minigame_minesweeper();
 int RockPaperScissor();
-int UpDownGame();
+int miniGame2_UpDown(Player *s)
 
 #endif
