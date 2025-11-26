@@ -6,5 +6,6 @@
 // 미니게임 함수 선언
 int sequenceMiniGame(Player *s);
 int minigame_minesweeper();
+int RockPaperScissor();
 
 #endif
