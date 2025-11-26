@@ -2,7 +2,6 @@
 #include "MiniGame.h"
 #include <stdio.h>
 #include <string.h>
-#include<windows.h>
 #pragma execution_character_set("utf-8")
 
 // 미니게임 함수 
@@ -112,10 +111,64 @@ void showResult(const BattleState *bs)
         printf(" 당신의 학점을 지켜냈습니다!\n");
     }
     else {
-        printf("모든 문제를 풀었지만 교수님을 쓰러뜨리진 못했습니다.\n");
+        printf("모든 문제를 풀었지만 교수님을 쓰러뜨리진 못했습니다!\n");
     }
 
     printf("==============================\n");
+}
+
+
+// --------------------------------------------------
+//  학년 필터 + 랜덤 문제 선택 함수
+struct Quiz* getRandomQuiz(BattleState *bs)
+{
+    struct Quiz *q = bs->quizList;
+    struct Quiz *candidates[200]; 
+    int count = 0;
+
+    int targetGrade = bs->student.grade; // 플레이어 학년
+
+    while (q != NULL) {
+        if (q->difficulty == targetGrade && q->used == 0) {
+            candidates[count++] = q;
+        }
+        q = q->next;
+    }
+
+    if (count == 0) return NULL;
+
+    int idx = rand() % count;
+    return candidates[idx];
+}
+
+
+// --------------------------------------------------
+//  특정 문제 직접 출제 함수
+int askQuizDirectly(BattleState *bs, struct Quiz *q)
+{
+    printf("\n==============================\n");
+    printf("Q: %s\n", q->question);
+
+    if (bs->student.hintCount > 0) {
+        printf("힌트를 사용하시겠습니까? (y/n): ");
+        char c;
+        scanf(" %c", &c);
+        if (c == 'y') useHint(&bs->student, q);
+    }
+
+    char ans[100];
+    printf("정답 입력: ");
+    scanf("%s", ans);
+
+    if (strcmp(ans, q->answer) == 0) {
+        printf("정답!\n");
+        q->used = 1;
+        return 1;
+    } else {
+        printf("오답! (정답: %s)\n", q->answer);
+        q->used = 1;
+        return 0;
+    }
 }
 
 
@@ -131,12 +184,22 @@ void startBattle(BattleState *bs)
         system("cls");
         printBattleStatus(bs);
 
-        int correct = askQuestion(bs, bs->currentQuiz);
+        // ----------------------------------------------------
+        // 🔥 기존 askQuestion 대신 학년 랜덤 문제 방식으로 교체됨
+        struct Quiz *selected = getRandomQuiz(bs);
+
+        if (selected == NULL) {
+            printf("\n해당 학년의 모든 문제를 풀었습니다!\n");
+            break;
+        }
+
+        int correct = askQuizDirectly(bs, selected);
+        // ----------------------------------------------------
 
         // ------------------------------
         // 정답 처리 + streak 관리
         if (correct) {
-            bs->correctStreak++;   //  연속 정답 증가
+            bs->correctStreak++;
 
             bs->professor.hp -= 10;
             if (bs->professor.hp < 0) bs->professor.hp = 0;
@@ -150,10 +213,8 @@ void startBattle(BattleState *bs)
                 printf(" 아이템 효과! 교수님 추가 데미지 -10!\n");
             }
         }
-        // ------------------------------
-        // 오답 처리
         else {
-            bs->correctStreak = 0; // ⭐ 연속 정답 초기화
+            bs->correctStreak = 0; 
 
             bs->student.hp -= 5;
             if (bs->student.hp < 0) bs->student.hp = 0;
@@ -161,39 +222,38 @@ void startBattle(BattleState *bs)
             printf(" 오답! 학생이 5 데미지를 받았습니다!\n");
         }
 
+<<<<<<< HEAD
         //  미니게임 등장 조건: 3회 연속 정답
         if (bs->correctStreak >= 3&&bs->professor.hp>0) {
             system("cls");
             printf("\n✨ 3회 연속 정답! 미니게임이 등장합니다!\n");
             Sleep(5000);
             system("cls");
+=======
+>>>>>>> b53d01ee97cb930d97ae508f9111cbaccd0bb6b7
 
-            int randmini=rand()%5+1;
+        //  미니게임 등장 조건: 3회 연속 정답
+        if (bs->correctStreak >= 3) {
+            printf("\n✨ 3회 연속 정답! 미니게임이 등장합니다!\n");
+
+            int randmini = rand() % 5 + 1;
             int result;
             
             switch(randmini){
-            case 1:
-                 result = miniGame_Sequence(); 
-               break;
-            case 2:
-                 result = miniGame2_UpDown(); 
-               break;
-            case 3:
-                 result = minigame_minesweeper(); 
-               break;
-            case 4:
-                 result = RockPaperScissor(); 
-               break;
-            case 5:
-                 result = TimeGame(); 
-               break;
+            case 1: result = miniGame_Sequence(); break;
+            case 2: result = miniGame2_UpDown(); break;
+            case 3: result = minigame_minesweeper(); break;
+            case 4: result = RockPaperScissor(); break;
+            case 5: result = TimeGame(); break;
             }   
 
             if (result == 1){
                 printf("미니게임 성공!\n");
-                dropItem(&bs->student);}
+                dropItem(&bs->student);
+            }
             else
                 printf("미니게임 실패! 보상 없음.\n");
+<<<<<<< HEAD
                 Sleep(3000);
             bs->correctStreak = 0; //  streak 초기화
         }
@@ -205,9 +265,12 @@ void startBattle(BattleState *bs)
         if (bs->currentQuiz >= bs->quizCount) {
             printf("\n 모든 문제를 풀었습니다!\n");
             break;
+=======
+
+            bs->correctStreak = 0;
+>>>>>>> b53d01ee97cb930d97ae508f9111cbaccd0bb6b7
         }
     }
 
     showResult(bs);
 }
-
