@@ -162,10 +162,30 @@ void startBattle(BattleState *bs)
         if (bs->correctStreak >= 3) {
             printf("\n✨ 3회 연속 정답! 미니게임이 등장합니다!\n");
 
-            int result = sequenceMiniGame(&bs->student);
+            int randmini=rand()%5+1;
+            int result;
+            
+            switch(randmini){
+            case 1:
+                 result = sequenceMiniGame(&bs->student); 
+               break;
+            case 2:
+                 result = miniGame2_UpDown(&bs->student); 
+               break;
+            case 3:
+                 result = minigame_minesweeper(); 
+               break;
+            case 4:
+                 result = RockPaperScissor(); 
+               break;
+            case 5:
+                 result = TimeGame(); 
+               break;
+            }   
 
-            if (result == 1)
-                printf("미니게임 성공! HP가 회복되었습니다!\n");
+            if (result == 1){
+                printf("미니게임 성공!\n");
+                dropItem(&bs->student);}
             else
                 printf("미니게임 실패! 보상 없음.\n");
 

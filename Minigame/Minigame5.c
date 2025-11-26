@@ -34,7 +34,7 @@ void screen(int cur) {
 
 }
 
-void RockPapreScissor() {
+int RockPapreScissor() {
 
 	srand(time(NULL));
 	SetConsoleOutputCP(CP_UTF8);
@@ -82,16 +82,16 @@ void RockPapreScissor() {
 	else{
 		switch (cur) {
 		case 1:
-			if (random == 2) printf("\n\n\n	       !!!졌다!!!\n	- 자네, 가위바위보 재수강이네. -\n\n\n");
-			else printf("\n\n\n	       !!!이겼다!!!\n       - 자네, 가위바위보 전공인가? -\n\n\n");
+			if (random == 2) {printf("\n\n\n	       !!!졌다!!!\n	- 자네, 가위바위보 재수강이네. -\n\n\n"); return 1;}
+			else {printf("\n\n\n	       !!!이겼다!!!\n       - 자네, 가위바위보 전공인가? -\n\n\n"); return 0;}
 			break;
 		case 2:
-			if (random == 3) printf("\n\n\n	       !!!졌다!!!\n	- 자네, 가위바위보 재수강이네. -\n\n\n");
-			else printf("\n\n\n	       !!!이겼다!!!\n      - 자네, 가위바위보 전공인가? -\n\n\n");
+			if (random == 3) {printf("\n\n\n	       !!!졌다!!!\n	- 자네, 가위바위보 재수강이네. -\n\n\n"); return 1;}
+			else {printf("\n\n\n	       !!!이겼다!!!\n       - 자네, 가위바위보 전공인가? -\n\n\n"); return 0;}
 			break;
 		case 3:
-			if (random == 1) printf("\n\n\n	       !!!졌다!!!\n	- 자네, 가위바위보 재수강이네. -\n\n\n");
-			else printf("\n\n\n	       !!!이겼다!!!\n      - 자네, 가위바위보 전공인가? -\n\n\n");
+			if (random == 1) {printf("\n\n\n	       !!!졌다!!!\n	- 자네, 가위바위보 재수강이네. -\n\n\n"); return 1;}
+			else {printf("\n\n\n	       !!!이겼다!!!\n       - 자네, 가위바위보 전공인가? -\n\n\n"); return 0;}
 			break;
 		}
 	}
