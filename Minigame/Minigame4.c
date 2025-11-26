@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <windows.h>
+#include<conio.h>
 
 #pragma execution_character_set("utf-8")
 

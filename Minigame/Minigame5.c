@@ -34,7 +34,7 @@ void screen(int cur) {
 
 }
 
-int RockPapreScissor() {
+int RockPaperScissor() {
 
 	srand(time(NULL));
 	SetConsoleOutputCP(CP_UTF8);
@@ -78,7 +78,7 @@ int RockPapreScissor() {
 	}
 
 	system("cls");
-	if (random == cur) { printf("\n\n\n	       !!!비겼다!!!\n              - !!다시!! -\n\n\n"); Sleep(1000); RockPapreScissor(); }
+	if (random == cur) { printf("\n\n\n	       !!!비겼다!!!\n              - !!다시!! -\n\n\n"); Sleep(1000); RockPaperScissor(); }
 	else{
 		switch (cur) {
 		case 1:
