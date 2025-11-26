@@ -2,6 +2,7 @@
 #include "MiniGame.h"
 #include <stdio.h>
 #include <string.h>
+#include<Windows.h>
 #pragma execution_character_set("utf-8")
 
 // 미니게임 함수 
@@ -206,12 +207,6 @@ void startBattle(BattleState *bs)
 
             printf("정답! 교수님에게 10 데미지를 주었습니다!\n");
 
-            int itemType = dropItem(&bs->student);
-            if (itemType == 3) {
-                bs->professor.hp -= 10;
-                if (bs->professor.hp < 0) bs->professor.hp = 0;
-                printf(" 아이템 효과! 교수님 추가 데미지 -10!\n");
-            }
         }
         else {
             bs->correctStreak = 0; 
@@ -222,20 +217,12 @@ void startBattle(BattleState *bs)
             printf(" 오답! 학생이 5 데미지를 받았습니다!\n");
         }
 
-<<<<<<< HEAD
-        //  미니게임 등장 조건: 3회 연속 정답
+       //  미니게임 등장 조건: 3회 연속 정답
         if (bs->correctStreak >= 3&&bs->professor.hp>0) {
             system("cls");
             printf("\n✨ 3회 연속 정답! 미니게임이 등장합니다!\n");
             Sleep(5000);
             system("cls");
-=======
->>>>>>> b53d01ee97cb930d97ae508f9111cbaccd0bb6b7
-
-        //  미니게임 등장 조건: 3회 연속 정답
-        if (bs->correctStreak >= 3) {
-            printf("\n✨ 3회 연속 정답! 미니게임이 등장합니다!\n");
-
             int randmini = rand() % 5 + 1;
             int result;
             
@@ -253,7 +240,6 @@ void startBattle(BattleState *bs)
             }
             else
                 printf("미니게임 실패! 보상 없음.\n");
-<<<<<<< HEAD
                 Sleep(3000);
             bs->correctStreak = 0; //  streak 초기화
         }
@@ -265,10 +251,6 @@ void startBattle(BattleState *bs)
         if (bs->currentQuiz >= bs->quizCount) {
             printf("\n 모든 문제를 풀었습니다!\n");
             break;
-=======
-
-            bs->correctStreak = 0;
->>>>>>> b53d01ee97cb930d97ae508f9111cbaccd0bb6b7
         }
     }
 
