@@ -1,4 +1,5 @@
 #define _CRT_SECURE_NO_WARNINGS
+#include "MiniGame.h"
 #include <stdio.h>
 #include <conio.h>
 #include <stdlib.h>
