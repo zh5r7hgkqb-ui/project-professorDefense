@@ -3,13 +3,14 @@
 #include <string.h>
 #pragma execution_character_set("utf-8")
 
+// 미니게임 함수 
+int sequenceMiniGame(Player *s);
 
 // --------------------------------------------------
-// HP 바 출력 함수 (■ = 채워진칸, □ = 빈칸)
-
+// HP 바 출력 함수
 void printHpBar(int current, int max)
 {
-    int barLength = 20;  // 표시할 전체 길이
+    int barLength = 20;
     int filled = (current * barLength) / max;
     int empty = barLength - filled;
 
@@ -21,13 +22,11 @@ void printHpBar(int current, int max)
 
 
 // --------------------------------------------------
-// 문제 출제 및 정답 판정 
-
+// 문제 출제 및 정답 판정
 int askQuestion(BattleState *bs, int index)
 {
     struct Quiz *q = bs->quizList;
 
-    // index번째 문제까지 이동
     for (int i = 0; i < index; i++) {
         if (q == NULL) return 0;
         q = q->next;
@@ -38,7 +37,6 @@ int askQuestion(BattleState *bs, int index)
     printf("문제 %d\n", index + 1);
     printf("Q: %s\n", q->question);
 
-    // 힌트 기능
     if (bs->student.hintCount > 0) {
         printf("힌트를 사용하시겠습니까? (y/n): ");
         char c;
@@ -68,19 +66,16 @@ int askQuestion(BattleState *bs, int index)
 
 // --------------------------------------------------
 // 전투 상태 출력
-
 void printBattleStatus(const BattleState *bs)
 {
     printf("\n==============================\n");
 
-    // 학생 HP 바 출력
     printf("학생 HP: ");
     printHpBar(bs->student.hp, bs->student.maxHp);
 
     printf("힌트: %d\n", bs->student.hintCount);
     printf("------------------------------\n");
 
-    // 교수님 HP 바 출력
     printf("교수님 HP: ");
     printHpBar(bs->professor.hp, bs->professor.maxHp);
 
@@ -90,7 +85,6 @@ void printBattleStatus(const BattleState *bs)
 
 // --------------------------------------------------
 // 전투 결과 출력
-
 void showResult(const BattleState *bs)
 {
     printf("\n==============================\n");
@@ -123,8 +117,7 @@ void showResult(const BattleState *bs)
 
 
 // --------------------------------------------------
-// 전투 루프 
-
+// 전투 루프 (미니게임 포함 최종 버전)
 void startBattle(BattleState *bs)
 {
     printf("\n전투 시작! 교수님이 나타났다!\n");
@@ -136,38 +129,52 @@ void startBattle(BattleState *bs)
         int correct = askQuestion(bs, bs->currentQuiz);
 
         // ------------------------------
-        // 정답 처리 과정
-        
+        // 정답 처리 + streak 관리
         if (correct) {
+            bs->correctStreak++;   //  연속 정답 증가
+
             bs->professor.hp -= 10;
             if (bs->professor.hp < 0) bs->professor.hp = 0;
 
             printf("정답! 교수님에게 10 데미지를 주었습니다!\n");
 
-            // 아이템 드랍
             int itemType = dropItem(&bs->student);
-
-            // 효과Type 3 = 교수님 추가 데미지
             if (itemType == 3) {
                 bs->professor.hp -= 10;
                 if (bs->professor.hp < 0) bs->professor.hp = 0;
                 printf(" 아이템 효과! 교수님 추가 데미지 -10!\n");
             }
         }
-
         // ------------------------------
         // 오답 처리
-        
         else {
+            bs->correctStreak = 0; // ⭐ 연속 정답 초기화
+
             bs->student.hp -= 5;
             if (bs->student.hp < 0) bs->student.hp = 0;
 
             printf(" 오답! 학생이 5 데미지를 받았습니다!\n");
         }
 
+
+        //  미니게임 등장 조건: 3회 연속 정답
+        if (bs->correctStreak >= 3) {
+            printf("\n✨ 3회 연속 정답! 미니게임이 등장합니다!\n");
+
+            int result = sequenceMiniGame(&bs->student);
+
+            if (result == 1)
+                printf("미니게임 성공! HP가 회복되었습니다!\n");
+            else
+                printf("미니게임 실패! 보상 없음.\n");
+
+            bs->correctStreak = 0; //  streak 초기화
+        }
+
+
+        // 퀴즈 다음 문제로
         bs->currentQuiz++;
 
-        // 끝 
         if (bs->currentQuiz >= bs->quizCount) {
             printf("\n 모든 문제를 풀었습니다!\n");
             break;
