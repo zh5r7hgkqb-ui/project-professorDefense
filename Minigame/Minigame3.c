@@ -54,12 +54,12 @@ int minigame_minesweeper() {
         if (!mines_open(&g, r, c)) {
             printf("\n 지뢰를 밟았습니다! (Game Over)\n");
             gameOver = 1;
-            break;
+            return 0;
         }
 
         if (mines_checkWin(&g)) {
             printf("\n 승리했습니다!(Win!)\n");
-            break;
+            return 1;
         }
     }
 
