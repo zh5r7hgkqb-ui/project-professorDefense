@@ -18,6 +18,7 @@ void initRandomSeed(void) {
 void initGame(BattleState *bs) {
 
     //메인 메뉴 파일 출력
+    system("cls");
     FILE *mainmenu=fopen("asset/mainmenu.txt","r");
     if (mainmenu) {
         char mainmenuarr[4096];

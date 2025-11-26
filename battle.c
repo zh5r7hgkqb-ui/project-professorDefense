@@ -2,6 +2,7 @@
 #include "MiniGame.h"
 #include <stdio.h>
 #include <string.h>
+#include<windows.h>
 #pragma execution_character_set("utf-8")
 
 // 미니게임 함수 
@@ -160,10 +161,11 @@ void startBattle(BattleState *bs)
             printf(" 오답! 학생이 5 데미지를 받았습니다!\n");
         }
 
-
         //  미니게임 등장 조건: 3회 연속 정답
-        if (bs->correctStreak >= 3) {
+        if (bs->correctStreak >= 3&&bs->professor.hp>0) {
             printf("\n✨ 3회 연속 정답! 미니게임이 등장합니다!\n");
+            Sleep(2000);
+            system("cls");
 
             int randmini=rand()%5+1;
             int result;
