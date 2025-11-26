@@ -6,8 +6,10 @@
 #define SIZE 5
 #define MINES 3
 
-int board[SIZE][SIZE];        // 실제 지뢰판 (-1 = mine, 0~8 = 주변 지뢰 수)
-int opened[SIZE][SIZE];       // 플레이어가 연 칸 (0=닫힘, 1=열림)
+typedef struct {
+    int board[SIZE][SIZE];     // 실제 지뢰판 (-1 = mine, 0~8 = 주변 지뢰 수)
+    int opened[SIZE][SIZE];    // 플레이어가 연 칸 (0=닫힘, 1=열림)
+} Minesweeper;
 
 void initBoard();
 void placeMines();
