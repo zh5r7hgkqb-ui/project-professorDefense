@@ -163,8 +163,9 @@ void startBattle(BattleState *bs)
 
         //  미니게임 등장 조건: 3회 연속 정답
         if (bs->correctStreak >= 3&&bs->professor.hp>0) {
+            system("cls");
             printf("\n✨ 3회 연속 정답! 미니게임이 등장합니다!\n");
-            Sleep(2000);
+            Sleep(5000);
             system("cls");
 
             int randmini=rand()%5+1;
@@ -193,7 +194,7 @@ void startBattle(BattleState *bs)
                 dropItem(&bs->student);}
             else
                 printf("미니게임 실패! 보상 없음.\n");
-
+                Sleep(3000);
             bs->correctStreak = 0; //  streak 초기화
         }
 
