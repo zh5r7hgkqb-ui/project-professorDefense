@@ -8,7 +8,7 @@
 
 void startUpDownGameFixed();
 
-int main() {
+int UpDownGame() {
     SetConsoleOutputCP(CP_UTF8);
     SetConsoleCP(CP_UTF8);
 
