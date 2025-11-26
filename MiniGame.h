@@ -4,7 +4,7 @@
 #include "struct.h"
 
 // 미니게임 함수 선언
-int sequenceMiniGame(Player *s);
+int miniGame_Sequence()
 int minigame_minesweeper();
 int RockPaperScissor();
 int miniGame2_UpDown(Player *s)
