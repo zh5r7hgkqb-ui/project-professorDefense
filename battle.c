@@ -167,10 +167,10 @@ void startBattle(BattleState *bs)
             
             switch(randmini){
             case 1:
-                 result = sequenceMiniGame(&bs->student); 
+                 result = miniGame_Sequence(); 
                break;
             case 2:
-                 result = miniGame2_UpDown(&bs->student); 
+                 result = miniGame2_UpDown(); 
                break;
             case 3:
                  result = minigame_minesweeper(); 
