@@ -32,18 +32,25 @@ void initGame(BattleState *bs) {
     scanf("%s", bs->student.name);
 
     do {
-        printf("학년을 입력하세요 (1~4): ");
-        if (scanf("%d", &bs->student.grade) != 1) {
-            
-            printf("잘못된 입력입니다. 1~4 사이의 숫자를 입력해주세요.\n");
+    printf("학년을 입력하세요 (1~4): ");
 
-            int c;
-            while ((c = getchar()) != '\n' && c != EOF); 
-       
-            continue; 
-        }
-        scanf("%d", &bs->student.grade);
-    } while (bs->student.grade < 1 || bs->student.grade > 4);
+    if (scanf("%d", &bs->student.grade) != 1) {
+        printf("잘못된 입력입니다! 숫자를 입력해주세요.\n");
+
+        // 버퍼 비우기
+        while (getchar() != '\n');
+
+        continue;
+    }
+
+    // 정상 입력 후 버퍼에 남은 '\n' 제거
+    while (getchar() != '\n');
+
+    if (bs->student.grade < 1 || bs->student.grade > 4)
+        printf("잘못된 범위입니다! 1~4 사이로 입력해주세요.\n");
+
+} while (bs->student.grade < 1 || bs->student.grade > 4);
+
 
     // 학생 초기값 설정
     bs->student.maxHp = 30;
@@ -97,4 +104,5 @@ int main(void) {
 
     return 0;
 }
+
 
