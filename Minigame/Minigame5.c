@@ -95,5 +95,5 @@ int RockPaperScissor() {
 			break;
 		}
 	}
-
+    return 0;
 }

@@ -238,10 +238,13 @@ void startBattle(BattleState *bs)
                 printf("미니게임 성공!\n");
                 dropItem(&bs->student);
             }
-            else
+            else{
                 printf("미니게임 실패! 보상 없음.\n");
                 Sleep(3000);
-            bs->correctStreak = 0; //  streak 초기화
+            }
+
+
+        bs->correctStreak = 0; //  streak 초기화
         }
 
 
