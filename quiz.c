@@ -35,7 +35,7 @@ int loadQuizFile(const char *filename, struct Quiz **quizList, int grade) {
 
         int diff;
         // 학년,문제,정답,힌트 순으로 읽기
-        if (sscanf(line, "%d,%255[^,],%49[^,],%99[^\n]",
+        if (sscanf(line, "%d,%255[^,],%255[^,],%999[^\n]",
                    &diff, newNode->question, newNode->answer, newNode->hint) == 4) {
             if (diff == grade) {
                 newNode->difficulty = diff;
