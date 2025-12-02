@@ -8,7 +8,7 @@
 
 void screen(int cur) {
 	if(cur==1) {
-		FILE* rock = fopen("aseet/rock.txt", "r");
+		FILE* rock = fopen("asset/rock.txt", "r");
 		char rockprint[100];
 		while (fgets(rockprint, sizeof(rockprint), rock)) {
 			printf("%s", rockprint);
@@ -43,6 +43,13 @@ int RockPaperScissor() {
 	int cur = 1, random = 0;
 	char arrow;
 	random = rand() % 3 + 1;
+
+	// ⭐⭐⭐ 미니게임 시작 ASCII 아트⭐⭐⭐
+    system("cls");
+    printAscii("asset/rockpaperscissor.txt");    // 넣고 싶은 아트 파일명
+    Sleep(1500);
+    system("cls");
+    // ⭐⭐⭐ 끝 ⭐⭐⭐
 
 	system("cls");
 	screen(cur);
