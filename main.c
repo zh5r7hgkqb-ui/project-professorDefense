@@ -65,7 +65,7 @@ void initGame(BattleState *bs) {
     printf("\n 학생 %s (%d학년) 전투를 준비하세요!\n",
            bs->student.name, bs->student.grade);
     printf("교수님 HP: %d\n", bs->professor.maxHp);
-    printf("==============================\n");
+    printf("======================================\n");
 }
 
 // -------------------------------------------
@@ -74,7 +74,7 @@ void initGame(BattleState *bs) {
 int main(void) {
 
     // ========================================
-    // 🔥 한글 깨짐 해결 (이 3줄이 핵심)
+    //  한글 깨짐 해결 (이 3줄이 핵심)
     // ========================================
     setlocale(LC_ALL, "ko_KR.UTF-8");
     SetConsoleOutputCP(CP_UTF8);

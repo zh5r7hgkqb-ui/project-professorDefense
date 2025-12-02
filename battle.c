@@ -78,7 +78,7 @@ int askQuestion(BattleState *bs, int index)
 // 전투 상태 출력
 void printBattleStatus(const BattleState *bs)
 {
-    printf("\n==============================\n");
+    printf("\n===========================================================\n");
 
     printf("학생 HP: ");
     printHpBar(bs->student.hp, bs->student.maxHp);
@@ -89,7 +89,7 @@ void printBattleStatus(const BattleState *bs)
     printf("교수님 HP: ");
     printHpBar(bs->professor.hp, bs->professor.maxHp);
 
-    printf("==============================\n");
+    printf("===========================================================\n");
 }
 
 
@@ -98,7 +98,7 @@ void printBattleStatus(const BattleState *bs)
 void showResult(const BattleState *bs)
 {
     system("cls");
-    printf("\n==============================\n");
+    printf("\n=======================================\n");
 
     if (bs->student.hp <= 0) {
         FILE *failure=fopen("asset/failure.txt","r");
@@ -123,7 +123,7 @@ void showResult(const BattleState *bs)
         printf("모든 문제를 풀었지만 교수님을 쓰러뜨리진 못했습니다!\n");
     }
 
-    printf("==============================\n");
+    printf("=======================================\n");
 }
 
 
