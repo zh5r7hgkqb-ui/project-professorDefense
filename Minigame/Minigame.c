@@ -6,36 +6,14 @@
 
 #pragma execution_character_set("utf-8")
 
-
-
 void gotoxy(int x, int y) {
     COORD pos = { x, y };
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
 }
 
-void printTimeGameArt() {
-    FILE *fp = fopen("asset/timegame.txt", "r");
-    if (!fp) {
-        printf("timegame.txt 파일을 찾을 수 없습니다!\n");
-        return;
-    }
-
-    char line[2048];
-    while (fgets(line, sizeof(line), fp)) {
-        printf("%s", line);
-    }
-
-    fclose(fp);
-}
-
 int TimeGame() {
     SetConsoleOutputCP(CP_UTF8);
     SetConsoleCP(CP_UTF8);
-
-    system("cls");
-    printTimeGameArt();   // 🔥 뇌 이미지 출력
-    Sleep(1500);          // 1.5초 동안 보여주기
-    system("cls");        // 화면 다시 지우기
 
     printf("==============================\n");
     printf("🎯 10초 맞추기 미니게임!\n");
@@ -43,6 +21,7 @@ int TimeGame() {
     printf("아무 키나 누르면 시작!\n");
     printf("==============================\n");
     _getch();
+
     system("cls");
     printf("🔥 타이머 시작!\n");
     printf("⏱ 현재 시간: 0.00초\n");
@@ -81,5 +60,8 @@ int TimeGame() {
     }
 
     // 기존 코드의 return 0 제거됨 
+}
+
+
 }
 
