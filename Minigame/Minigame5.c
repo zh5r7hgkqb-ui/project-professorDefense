@@ -8,7 +8,7 @@
 
 void screen(int cur) {
 	if(cur==1) {
-		FILE* rock = fopen("asset/rock.txt", "r");
+		FILE* rock = fopen("rock.txt", "r");
 		char rockprint[100];
 		while (fgets(rockprint, sizeof(rockprint), rock)) {
 			printf("%s", rockprint);
@@ -16,7 +16,7 @@ void screen(int cur) {
 		fclose(rock);
 	}
 	else if(cur==2) {
-		FILE* paper = fopen("asset/paper.txt", "r");
+		FILE* paper = fopen("paper.txt", "r");
 		char paperprint[100];
 		while (fgets(paperprint, sizeof(paperprint), paper)) {
 			printf("%s", paperprint);
@@ -24,7 +24,7 @@ void screen(int cur) {
 		fclose(paper);
 	}
 	else {
-		FILE* scissor = fopen("asset/scissor.txt", "r");
+		FILE* scissor = fopen("scissor.txt", "r");
 		char scissorprint[100];
 		while (fgets(scissorprint, sizeof(scissorprint), scissor)) {
 			printf("%s", scissorprint);
