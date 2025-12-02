@@ -42,10 +42,18 @@ int askQuestion(BattleState *bs, int index)
     if (bs->student.hintCount > 0) {
         printf("힌트를 사용하시겠습니까? (y/n): ");
         char c;
-        scanf(" %c", &c);
-
-        if (c == 'y') {
-            useHint(&bs->student, q);
+        if (scanf(" %c", &c) != 1) {
+             
+             while (getchar() != '\n' && getchar() != EOF); 
+        } else {
+             
+             while (getchar() != '\n' && getchar() != EOF); 
+             
+             
+             if (c == 'y' || c == 'Y') {
+                 useHint(&bs->student, q);
+             }
+             // 'y'나 'Y'이 아닌 다른 문자(한글, 다른 영어, 숫자)는 무시하고 통과
         }
     }
 
@@ -283,5 +291,6 @@ void startBattle(BattleState *bs)
 
     showResult(bs);
 }
+
 
 
