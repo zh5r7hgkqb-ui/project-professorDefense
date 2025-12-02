@@ -34,6 +34,13 @@ int minigame_minesweeper() {
     int gameOver = 0;
 
     srand(time(NULL));
+ 
+    // ⭐⭐ ASCII 넣는 부분 ⭐⭐
+    system("cls");
+    printAscii("asset/minesweeper.txt");
+    Sleep(1500);
+    system("cls");
+    // ⭐⭐ 끝 ⭐⭐
 
     mines_init(&g);
     mines_placeMines(&g);
