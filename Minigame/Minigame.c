@@ -15,6 +15,13 @@ int TimeGame() {
     SetConsoleOutputCP(CP_UTF8);
     SetConsoleCP(CP_UTF8);
 
+    // ⭐⭐ 여기 ASCII 아트 표시 ⭐⭐
+    system("cls");
+    printAscii("asset/timegame.txt");   // ← ASCII 출력
+    Sleep(2000);
+    system("cls");
+    // ⭐⭐ 여기까지 ⭐⭐
+
     printf("==============================\n");
     printf("🎯 10초 맞추기 미니게임!\n");
     printf("10초를 기다렸다가 스페이스바를 누르세요.\n");
@@ -60,5 +67,8 @@ int TimeGame() {
     }
 
     // 기존 코드의 return 0 제거됨 
+}
+
+
 }
 

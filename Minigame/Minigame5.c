@@ -8,7 +8,7 @@
 
 void screen(int cur) {
 	if(cur==1) {
-		FILE* rock = fopen("aseet/rock.txt", "r");
+		FILE* rock = fopen("rock.txt", "r");
 		char rockprint[100];
 		while (fgets(rockprint, sizeof(rockprint), rock)) {
 			printf("%s", rockprint);
@@ -16,7 +16,7 @@ void screen(int cur) {
 		fclose(rock);
 	}
 	else if(cur==2) {
-		FILE* paper = fopen("asset/paper.txt", "r");
+		FILE* paper = fopen("paper.txt", "r");
 		char paperprint[100];
 		while (fgets(paperprint, sizeof(paperprint), paper)) {
 			printf("%s", paperprint);
@@ -24,7 +24,7 @@ void screen(int cur) {
 		fclose(paper);
 	}
 	else {
-		FILE* scissor = fopen("asset/scissor.txt", "r");
+		FILE* scissor = fopen("scissor.txt", "r");
 		char scissorprint[100];
 		while (fgets(scissorprint, sizeof(scissorprint), scissor)) {
 			printf("%s", scissorprint);
@@ -43,6 +43,13 @@ int RockPaperScissor() {
 	int cur = 1, random = 0;
 	char arrow;
 	random = rand() % 3 + 1;
+
+	// ⭐⭐⭐ 미니게임 시작 ASCII 아트⭐⭐⭐
+    system("cls");
+    printAscii("asset/rockpaperscissor.txt");    // 넣고 싶은 아트 파일명
+    Sleep(1500);
+    system("cls");
+    // ⭐⭐⭐ 끝 ⭐⭐⭐
 
 	system("cls");
 	screen(cur);
