@@ -10,5 +10,6 @@ int minigame_minesweeper();
 int RockPaperScissor();
 int miniGame2_UpDown();
 int TimeGame();
+void printAscii(const char* filename);
 
 #endif
