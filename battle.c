@@ -37,7 +37,7 @@ int askQuestion(BattleState *bs, int index)
 
     printf("\n==============================\n");
     printf("문제 %d\n", index + 1);
-    printf("Q: %s\n", q->question);
+    printf("\nQ: %s\n", q->question);
 
     if (bs->student.hintCount > 0) {
         printf("힌트를 사용하시겠습니까? (y/n): ");
@@ -147,8 +147,14 @@ struct Quiz* getRandomQuiz(BattleState *bs)
 //  특정 문제 직접 출제 함수
 int askQuizDirectly(BattleState *bs, struct Quiz *q)
 {
-    printf("\n==============================\n");
     printf("Q: %s\n", q->question);
+
+       FILE* prnormal = fopen("asset/pro_normal.txt", "r");
+		char prnprint[100];
+		while (fgets(prnprint, sizeof(prnprint), prnormal)) {
+			printf("%s", prnprint);
+		}
+		fclose(prnormal);
 
     if (bs->student.hintCount > 0) {
         printf("힌트를 사용하시겠습니까? (y/n): ");
@@ -179,9 +185,11 @@ void startBattle(BattleState *bs)
 {
     bs->correctStreak = 0;
     printf("\n전투 시작! 교수님이 나타났다!\n");
+    
 
     while (bs->student.hp > 0 && bs->professor.hp > 0)
     {
+        Sleep(3000);
         system("cls");
         printBattleStatus(bs);
 
@@ -199,11 +207,20 @@ void startBattle(BattleState *bs)
 
         // ------------------------------
         // 정답 처리 + streak 관리
+        system("cls");
         if (correct) {
             bs->correctStreak++;
 
             bs->professor.hp -= 10;
             if (bs->professor.hp < 0) bs->professor.hp = 0;
+
+            printBattleStatus(bs);
+              FILE* prangry = fopen("asset/pro_angry.txt", "r");
+		char praprint[100];
+		while (fgets(praprint, sizeof(praprint), prangry)) {
+			printf("%s", praprint);
+		}
+		fclose(prangry);
 
             printf("정답! 교수님에게 10 데미지를 주었습니다!\n");
 
@@ -214,6 +231,14 @@ void startBattle(BattleState *bs)
             bs->student.hp -= 5;
             if (bs->student.hp < 0) bs->student.hp = 0;
 
+            printBattleStatus(bs);
+              FILE* prhappy = fopen("asset/pro_happy.txt", "r");
+		char prhprint[100];
+		while (fgets(prhprint, sizeof(prhprint), prhappy)) {
+			printf("%s", prhprint);
+		}
+		fclose(prhappy);
+
             printf(" 오답! 학생이 5 데미지를 받았습니다!\n");
         }
 
@@ -221,7 +246,7 @@ void startBattle(BattleState *bs)
         if (bs->correctStreak >= 3&&bs->professor.hp>0) {
             system("cls");
             printf("\n✨ 3회 연속 정답! 미니게임이 등장합니다!\n");
-            Sleep(5000);
+            Sleep(4000);
             system("cls");
             int randmini = rand() % 5 + 1;
             int result;
@@ -240,7 +265,6 @@ void startBattle(BattleState *bs)
             }
             else{
                 printf("미니게임 실패! 보상 없음.\n");
-                Sleep(3000);
             }
 
 

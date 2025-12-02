@@ -51,7 +51,7 @@ void initGame(BattleState *bs) {
 
 } while (bs->student.grade < 1 || bs->student.grade > 4);
 
-
+    system("cls");
     // 학생 초기값 설정
     bs->student.maxHp = 30;
     bs->student.hp = bs->student.maxHp;
