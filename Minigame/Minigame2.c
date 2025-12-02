@@ -23,7 +23,14 @@ int miniGame2_UpDown()
     int attempts = 0;
 
     srand((unsigned)time(NULL));
-
+  
+    // ⭐⭐ ASCII 출력 넣는 부분 ⭐⭐
+    system("cls");
+    printAscii("asset/updown.txt");   // ← 업다운 아트 표시
+    Sleep(1500);
+    system("cls");
+    // ⭐⭐ 끝 ⭐⭐
+    
     printf("======================================\n");
     printf("⬆️⬇️  UP & DOWN 숫자 맞추기 게임\n");
     printf("======================================\n");
