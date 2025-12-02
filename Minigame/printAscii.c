@@ -1,4 +1,7 @@
+#include "MiniGame.h"
 #include <stdio.h>
+#include <windows.h>
+
 
 void printAscii(const char *filename) {
     FILE *fp = fopen(filename, "r");

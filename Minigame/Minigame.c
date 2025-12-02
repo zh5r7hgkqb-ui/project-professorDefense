@@ -70,5 +70,3 @@ int TimeGame() {
 }
 
 
-}
-
