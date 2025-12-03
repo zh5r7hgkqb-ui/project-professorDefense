@@ -6,6 +6,8 @@
 #include<time.h>
 #include <windows.h>
 
+int flag=1;//맨 처음만 아스키 아트 출력
+
 void screen(int cur) {
 	if(cur==1) {
 		FILE* rock = fopen("rock.txt", "r");
@@ -45,11 +47,14 @@ int RockPaperScissor() {
 	random = rand() % 3 + 1;
 
 	// ⭐⭐⭐ 미니게임 시작 ASCII 아트⭐⭐⭐
+	if(flag){
     system("cls");
     printAscii("asset/rockpaperscissor.txt");    // 넣고 싶은 아트 파일명
     Sleep(1500);
     system("cls");
+	}
     // ⭐⭐⭐ 끝 ⭐⭐⭐
+	flag=0;
 
 	system("cls");
 	screen(cur);
