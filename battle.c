@@ -24,57 +24,6 @@ void printHpBar(int current, int max)
 
 
 // --------------------------------------------------
-// 문제 출제 및 정답 판정
-int askQuestion(BattleState *bs, int index)
-{
-    struct Quiz *q = bs->quizList;
-
-    for (int i = 0; i < index; i++) {
-        if (q == NULL) return 0;
-        q = q->next;
-    }
-    if (q == NULL) return 0;
-
-    printf("\n==============================\n");
-    printf("문제 %d\n", index + 1);
-    printf("\nQ: %s\n", q->question);
-
-    if (bs->student.hintCount > 0) {
-        printf("힌트를 사용하시겠습니까? (y/n): ");
-        char c;
-        if (scanf(" %c", &c) != 1) {
-             
-             while (getchar() != '\n' && getchar() != EOF); 
-        } else {
-             
-             while (getchar() != '\n' && getchar() != EOF); 
-             
-             
-             if (c == 'y' || c == 'Y') {
-                 useHint(&bs->student, q);
-             }
-             // 'y'나 'Y'이 아닌 다른 문자(한글, 다른 영어, 숫자)는 무시하고 통과
-        }
-    }
-
-    char ans[100];
-    printf("정답 입력(o/x): \n");
-    scanf("%s", ans);
-
-    if (strcmp(ans, q->answer) == 0) {
-        printf("정답!\n");
-        q->used = 1;
-        return 1;
-    }
-    else {
-        printf("오답! (정답: %s)\n", q->answer);
-        q->used = 1;
-        return 0;
-    }
-}
-
-
-// --------------------------------------------------
 // 전투 상태 출력
 void printBattleStatus(const BattleState *bs)
 {
@@ -167,8 +116,19 @@ int askQuizDirectly(BattleState *bs, struct Quiz *q)
     if (bs->student.hintCount > 0) {
         printf("힌트를 사용하시겠습니까? (y/n): ");
         char c;
-        scanf(" %c", &c);
-        if (c == 'y') useHint(&bs->student, q);
+        if (scanf(" %c", &c) != 1) {
+             
+             while (getchar() != '\n' && getchar() != EOF); 
+        } else {
+             
+             while (getchar() != '\n' && getchar() != EOF); 
+             
+             
+             if (c == 'y' || c == 'Y') {
+                 useHint(&bs->student, q);
+             }
+             // 'y'나 'Y'이 아닌 다른 문자(한글, 다른 영어, 숫자)는 무시하고 통과
+        }
     }
 
     char ans[100];
@@ -291,6 +251,7 @@ void startBattle(BattleState *bs)
 
     showResult(bs);
 }
+
 
 
 
