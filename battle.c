@@ -2,14 +2,33 @@
 #include "MiniGame.h"
 #include <stdio.h>
 #include <string.h>
-#include<Windows.h>
+#include <Windows.h>
 #pragma execution_character_set("utf-8")
 
 // 미니게임 함수 
 int sequenceMiniGame(Player *s);
 
 // --------------------------------------------------
-// HP 바 출력 함수
+// 🔥 문제(Q:)만 줄바꿈하는 함수
+void printWrapped(const char* text, int width) {
+    int lineLen = 0;
+
+    while (*text) {
+        putchar(*text);
+        lineLen++;
+
+        // width 이상이면 공백에서 줄바꿈
+        if (lineLen >= width && *text == ' ') {
+            putchar('\n');
+            lineLen = 0;
+        }
+        text++;
+    }
+    putchar('\n');
+}
+
+// --------------------------------------------------
+// HP 바 출력
 void printHpBar(int current, int max)
 {
     int barLength = 20;
@@ -21,7 +40,6 @@ void printHpBar(int current, int max)
     for (int i = 0; i < empty; i++) printf("□");
     printf("] %d/%d\n", current, max);
 }
-
 
 // --------------------------------------------------
 // 전투 상태 출력
@@ -42,7 +60,6 @@ void printBattleStatus(const BattleState *bs)
 
     printf("===========================================================\n");
 }
-
 
 // --------------------------------------------------
 // 전투 결과 출력
@@ -77,16 +94,15 @@ void showResult(const BattleState *bs)
     printf("=======================================\n");
 }
 
-
 // --------------------------------------------------
-//  학년 필터 + 랜덤 문제 선택 함수
+// 학년 필터 + 랜덤 문제 추출
 struct Quiz* getRandomQuiz(BattleState *bs)
 {
     struct Quiz *q = bs->quizList;
     struct Quiz *candidates[200]; 
     int count = 0;
 
-    int targetGrade = bs->student.grade; // 플레이어 학년
+    int targetGrade = bs->student.grade;
 
     while (q != NULL) {
         if (q->difficulty == targetGrade && q->used == 0) {
@@ -101,35 +117,30 @@ struct Quiz* getRandomQuiz(BattleState *bs)
     return candidates[idx];
 }
 
-
 // --------------------------------------------------
-//  특정 문제 직접 출제 함수
+// 🔥 특정 문제 출제 (줄바꿈 적용된 버전)
 int askQuizDirectly(BattleState *bs, struct Quiz *q)
 {
-    printf("Q: %s\n", q->question);
+    printf("Q: ");
+    printWrapped(q->question, 45);   // ← 문제만 줄바꿈됨
 
-       FILE* prnormal = fopen("asset/pro_normal.txt", "r");
-		char prnprint[100];
-		while (fgets(prnprint, sizeof(prnprint), prnormal)) {
-			printf("%s", prnprint);
-		}
-		fclose(prnormal);
+    FILE* prnormal = fopen("asset/pro_normal.txt", "r");
+    char prnprint[100];
+    while (fgets(prnprint, sizeof(prnprint), prnormal)) {
+        printf("%s", prnprint);
+    }
+    fclose(prnormal);
 
     if (bs->student.hintCount > 0) {
         printf("힌트를 사용하시겠습니까? (y/n): ");
         char c;
         if (scanf(" %c", &c) != 1) {
-             
-             while (getchar() != '\n' && getchar() != EOF); 
+            while (getchar() != '\n' && getchar() != EOF);
         } else {
-             
-             while (getchar() != '\n' && getchar() != EOF); 
-             
-             
-             if (c == 'y' || c == 'Y') {
-                 useHint(&bs->student, q);
-             }
-             // 'y'나 'Y'이 아닌 다른 문자(한글, 다른 영어, 숫자)는 무시하고 통과
+            while (getchar() != '\n' && getchar() != EOF);
+            if (c == 'y' || c == 'Y') {
+                useHint(&bs->student, q);
+            }
         }
     }
 
@@ -148,9 +159,8 @@ int askQuizDirectly(BattleState *bs, struct Quiz *q)
     }
 }
 
-
 // --------------------------------------------------
-// 전투 루프 (미니게임 포함 최종 버전)
+// 전투 루프
 void startBattle(BattleState *bs)
 {
     // 1) 교수님 HP 절대 고정
@@ -160,14 +170,16 @@ void startBattle(BattleState *bs)
     bs->correctStreak = 0;
     printf("\n전투 시작! 교수님이 나타났다!\n");
     
-
     while (bs->student.hp > 0 && bs->professor.hp > 0)
     {
         Sleep(3000);
         system("cls");
         printBattleStatus(bs);
 
+<<<<<<< HEAD
         // 🔥 학년 랜덤 문제
+=======
+>>>>>>> a90dfa1e22b77b4e5cb7b5e4c97b6dd09cf94efa
         struct Quiz *selected = getRandomQuiz(bs);
 
         if (selected == NULL) {
@@ -181,7 +193,7 @@ void startBattle(BattleState *bs)
         if (correct) {
             bs->correctStreak++;
 
-            bs->professor.hp -= 5;
+            bs->professor.hp -= 5;    // ← 너가 사용한 데미지 5 유지
             if (bs->professor.hp < 0) bs->professor.hp = 0;
 
             printBattleStatus(bs);
@@ -195,14 +207,17 @@ void startBattle(BattleState *bs)
 
             printf("정답! 교수님에게 5 데미지를 주었습니다!\n");
 
-        }
-        else {
-            bs->correctStreak = 0; 
+        } else {
+            bs->correctStreak = 0;
 
             bs->student.hp -= 5;
             if (bs->student.hp < 0) bs->student.hp = 0;
 
             printBattleStatus(bs);
+<<<<<<< HEAD
+=======
+
+>>>>>>> a90dfa1e22b77b4e5cb7b5e4c97b6dd09cf94efa
             FILE* prhappy = fopen("asset/pro_happy.txt", "r");
             char prhprint[100];
             while (fgets(prhprint, sizeof(prhprint), prhappy)) {
@@ -213,12 +228,17 @@ void startBattle(BattleState *bs)
             printf(" 오답! 학생이 5 데미지를 받았습니다!\n");
         }
 
+<<<<<<< HEAD
         // 미니게임: 3회 연속 정답
+=======
+        // ⭐ 3연속 정답 → 미니게임
+>>>>>>> a90dfa1e22b77b4e5cb7b5e4c97b6dd09cf94efa
         if (bs->correctStreak >= 3 && bs->professor.hp > 0) {
             system("cls");
             printf("\n✨ 3회 연속 정답! 미니게임이 등장합니다!\n");
             Sleep(4000);
             system("cls");
+
             int randmini = rand() % 5 + 1;
             int result;
             
