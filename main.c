@@ -5,6 +5,41 @@
 #include <locale.h>
 #include <windows.h>
 
+// 글자 하나씩 찍어주는 타자기 효과 함수
+
+void typeWriter(const char* text, int delay) {
+    while (*text) {
+        putchar(*text);
+        fflush(stdout);
+        Sleep(delay);
+        text++;
+    }
+}
+
+void showIntro() {
+    printf("==============================================================\n");
+    printf("                        [ 학점의 역습 ]\n\n");
+
+    typeWriter("충북대 컴퓨터공학과 학생인 당신…\n", 30);
+    typeWriter("이번 학기에 악명 높은 '그 교수님'의 수업을 듣게 되었다!\n\n", 30);
+
+    typeWriter("교수님은 학생들에게 학점을 쉽게 주지 않기로 유명하다.\n", 30);
+    typeWriter("매 시간마다 점점 더 어려워지는 문제를 내며,\n", 30);
+    typeWriter("학생들의 정신과 체력을 갉아먹고 있다…\n\n", 30);
+
+    typeWriter("하지만 이번 학기만큼은…\n", 30);
+    typeWriter("당신의 학점을 지켜내기 위해 도전해야 한다!\n\n", 30);
+
+    typeWriter("▶ 문제를 풀어 지식을 모아라!\n", 20);
+    typeWriter("▶ 아이템을 획득해 위기를 넘겨라!\n", 20);
+    typeWriter("▶ 교수님의 체력을 0으로 만들어 학점을 되찾아라!\n\n", 20);
+
+    printf("==============================================================\n");
+    printf("             계속하려면 Enter 키를 누르세요...\n");
+
+    getchar();  // 엔터 입력 대기 (인트로 끝)
+}
+
 // -------------------------------------------
 // 난수 초기화
 // -------------------------------------------
@@ -81,6 +116,8 @@ int main(void) {
     SetConsoleCP(CP_UTF8);
     // ========================================
 
+    showIntro(); // 인트로 출력
+    
     BattleState game;
 
     initRandomSeed();  // 난수 초기화
@@ -104,5 +141,6 @@ int main(void) {
 
     return 0;
 }
+
 
 
