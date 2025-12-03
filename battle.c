@@ -179,7 +179,7 @@ void startBattle(BattleState *bs)
         if (correct) {
             bs->correctStreak++;
 
-            bs->professor.hp -= 10;
+            bs->professor.hp -= 5;
             if (bs->professor.hp < 0) bs->professor.hp = 0;
 
             printBattleStatus(bs);
@@ -190,7 +190,7 @@ void startBattle(BattleState *bs)
 		}
 		fclose(prangry);
 
-            printf("정답! 교수님에게 10 데미지를 주었습니다!\n");
+            printf("정답! 교수님에게 5 데미지를 주었습니다!\n");
 
         }
         else {
