@@ -59,7 +59,7 @@ void initGame(BattleState *bs) {
 
     // 교수님 초기값 설정 (학년별 난이도 조정)
     snprintf(bs->professor.name, sizeof(bs->professor.name), "교수님");
-    bs->professor.maxHp = 20 + (bs->student.grade - 1) * 10;
+    bs->professor.maxHp = 30;
     bs->professor.hp = bs->professor.maxHp;
 
     printf("\n 학생 %s (%d학년) 전투를 준비하세요!\n",

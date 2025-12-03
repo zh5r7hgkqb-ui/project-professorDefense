@@ -27,6 +27,8 @@ void printHpBar(int current, int max)
 // 전투 상태 출력
 void printBattleStatus(const BattleState *bs)
 {
+    
+
     printf("\n===========================================================\n");
 
     printf("학생 HP: ");
@@ -151,6 +153,10 @@ int askQuizDirectly(BattleState *bs, struct Quiz *q)
 // 전투 루프 (미니게임 포함 최종 버전)
 void startBattle(BattleState *bs)
 {
+    // 1) 교수님 HP 절대 고정
+    bs->professor.maxHp = 30;
+    bs->professor.hp    = 30;
+
     bs->correctStreak = 0;
     printf("\n전투 시작! 교수님이 나타났다!\n");
     
@@ -161,8 +167,7 @@ void startBattle(BattleState *bs)
         system("cls");
         printBattleStatus(bs);
 
-        // ----------------------------------------------------
-        // 🔥 기존 askQuestion 대신 학년 랜덤 문제 방식으로 교체됨
+        // 🔥 학년 랜덤 문제
         struct Quiz *selected = getRandomQuiz(bs);
 
         if (selected == NULL) {
@@ -171,10 +176,7 @@ void startBattle(BattleState *bs)
         }
 
         int correct = askQuizDirectly(bs, selected);
-        // ----------------------------------------------------
 
-        // ------------------------------
-        // 정답 처리 + streak 관리
         system("cls");
         if (correct) {
             bs->correctStreak++;
@@ -183,12 +185,13 @@ void startBattle(BattleState *bs)
             if (bs->professor.hp < 0) bs->professor.hp = 0;
 
             printBattleStatus(bs);
-              FILE* prangry = fopen("asset/pro_angry.txt", "r");
-		char praprint[100];
-		while (fgets(praprint, sizeof(praprint), prangry)) {
-			printf("%s", praprint);
-		}
-		fclose(prangry);
+
+            FILE* prangry = fopen("asset/pro_angry.txt", "r");
+            char praprint[100];
+            while (fgets(praprint, sizeof(praprint), prangry)) {
+                printf("%s", praprint);
+            }
+            fclose(prangry);
 
             printf("정답! 교수님에게 5 데미지를 주었습니다!\n");
 
@@ -200,18 +203,18 @@ void startBattle(BattleState *bs)
             if (bs->student.hp < 0) bs->student.hp = 0;
 
             printBattleStatus(bs);
-              FILE* prhappy = fopen("asset/pro_happy.txt", "r");
-		char prhprint[100];
-		while (fgets(prhprint, sizeof(prhprint), prhappy)) {
-			printf("%s", prhprint);
-		}
-		fclose(prhappy);
+            FILE* prhappy = fopen("asset/pro_happy.txt", "r");
+            char prhprint[100];
+            while (fgets(prhprint, sizeof(prhprint), prhappy)) {
+                printf("%s", prhprint);
+            }
+            fclose(prhappy);
 
             printf(" 오답! 학생이 5 데미지를 받았습니다!\n");
         }
 
-       //  미니게임 등장 조건: 3회 연속 정답
-        if (bs->correctStreak >= 3&&bs->professor.hp>0) {
+        // 미니게임: 3회 연속 정답
+        if (bs->correctStreak >= 3 && bs->professor.hp > 0) {
             system("cls");
             printf("\n✨ 3회 연속 정답! 미니게임이 등장합니다!\n");
             Sleep(4000);
@@ -235,12 +238,9 @@ void startBattle(BattleState *bs)
                 printf("미니게임 실패! 보상 없음.\n");
             }
 
-
-        bs->correctStreak = 0; //  streak 초기화
+            bs->correctStreak = 0;
         }
 
-
-        // 퀴즈 다음 문제로
         bs->currentQuiz++;
 
         if (bs->currentQuiz >= bs->quizCount) {
@@ -251,6 +251,7 @@ void startBattle(BattleState *bs)
 
     showResult(bs);
 }
+
 
 
 
