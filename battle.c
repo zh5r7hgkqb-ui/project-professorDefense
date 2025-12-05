@@ -272,8 +272,23 @@ void startBattle(BattleState *bs)
         if (bs->correctStreak >= 3 && bs->professor.hp > 0) {
             system("cls");
             printf("\n✨ 3회 연속 정답! 미니게임이 등장합니다!\n");
-            Sleep(4000);
+            
+             FILE *mg = fopen("asset/minigame.txt", "r");
+             if (mg) {
+             char line[4096];
+             while (fgets(line, sizeof(line), mg)) {
+            printf("%s", line);
+             }
+             fclose(mg);
+           } else {
+             printf("[minigame.txt 파일을 찾을 수 없습니다]\n\n");
+           }
+
+            printf("\n잠시 후 미니게임이 시작됩니다...\n");
+            Sleep(3500);
+
             system("cls");
+
 
             int randmini = rand() % 5 + 1;
             int result;
