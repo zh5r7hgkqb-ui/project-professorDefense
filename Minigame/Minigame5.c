@@ -50,7 +50,7 @@ int RockPaperScissor() {
 	if(flag){
     system("cls");
     printAscii("asset/rockpaperscissor.txt");    // 넣고 싶은 아트 파일명
-    Sleep(1500);
+    Sleep(2500);
     system("cls");
 	}
     // ⭐⭐⭐ 끝 ⭐⭐⭐
