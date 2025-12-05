@@ -5,6 +5,8 @@
 #include <Windows.h>
 #pragma execution_character_set("utf-8")
 
+int main(void);   // 🔥 재도전 위해 main() 미리 선언
+
 // 미니게임 함수 
 int sequenceMiniGame(Player *s);
 
@@ -59,56 +61,94 @@ void printBattleStatus(const BattleState *bs)
 }
 
 // --------------------------------------------------
-// 전투 결과 출력
+// 전투 결과 + 엔딩 + 재도전
 void showResult(const BattleState *bs)
 {
     system("cls");
-    printf("\n=======================================\n");
 
+    // ============================
+    // 1) 승리 / 패배 아스키아트 + 감성 문구
+    // ============================
     if (bs->student.hp <= 0) {
-        FILE *failure=fopen("asset/failure.txt","r");
-        char failurearr[4096];
-        while (fgets(failurearr, sizeof(failurearr), failure)) {
-            printf("%s", failurearr);
+        // 패배 아스키아트
+        FILE *failure = fopen("asset/failure.txt","r");
+        if (failure) {
+            char failurearr[4096];
+            while (fgets(failurearr, sizeof(failurearr), failure)) {
+                printf("%s", failurearr);
+            }
+            fclose(failure);
         }
-        fclose(failure);
-        printf("\n 패배... 교수님의 강의는 너무 어려웠다.\n");
-        Sleep(3000);
-        
-        system("cls");
+
+        printf("\n==============================================================\n");
+        printf("                     교수님 : \"학점? 글쎄요~^^\"\n");
+        printf("==============================================================\n\n");
+
+        printf("최선을 다했지만...  \n");
+        printf("교수님의 냉정함 앞에서 힘을 잃고 말았다.\n\n");
+
+        printf("하지만 실망하긴 이르다.\n");
+        printf("다음 번엔 더 똑똑해진 당신이  \n");
+        printf("교수님을 향해 미소 지을지도 모른다.\n\n");
     }
     else if (bs->professor.hp <= 0) {
-        FILE *success=fopen("asset/success.txt","r");
-        char successarr[4096];
-        while (fgets(successarr, sizeof(successarr), success)) {
-            printf("%s", successarr);
+        // 승리 아스키아트
+        FILE *success = fopen("asset/success.txt","r");
+        if (success) {
+            char successarr[4096];
+            while (fgets(successarr, sizeof(successarr), success)) {
+                printf("%s", successarr);
+            }
+            fclose(success);
         }
-        fclose(success);
-        printf("\n 승리! 교수님을 무찔렀다!\n");
-        printf(" 당신의 학점을 지켜냈습니다!\n");
 
-     
-        Sleep(3000);
-        
-        system("cls");
+        printf("\n==============================================================\n");
+        printf("                     승리! 학점을 지켜냈다!\n");
+        printf("==============================================================\n\n");
+
+        printf("오늘도 교수님의 강의는 만만치 않았지만  \n");
+        printf("당신은 끝까지 포기하지 않았습니다.\n\n");
+
+        printf("지식으로 쌓은 노력,  \n");
+        printf("집중력으로 버틴 시간들,\n");
+        printf("그 모든 것들이 하나 되어  \n");
+        printf("드디어 교수님을 쓰러뜨렸습니다!\n\n");
+
+        printf("당신의 학점은...  \n");
+        printf("지켜냈습니다.\n\n");
+
+        printf("이 승리는 절대 우연이 아닙니다.\n");
+        printf("당신의 노력의 결과입니다.\n\n");
     }
     else {
-        printf("모든 문제를 풀었지만 교수님을 쓰러뜨리진 못했습니다!\n");
-        Sleep(3000);
-        
-        system("cls");
+        // 둘 다 안 죽은 애매한 경우(문제 다 소진 등)
+        printf("\n모든 문제를 풀었지만 교수님을 쓰러뜨리진 못했습니다...\n\n");
     }
 
-    
-    printf("=======================================\n");
-    printf("   게임이 종료되었습니다.\n");
-    printf("=======================================\n");
-    printf("엔터를 누르면 종료됩니다...");
+    // ============================
+    // 2) 재도전 / 종료 선택 메뉴
+    // ============================
+    int choice;
 
-    getchar();  
-    getchar();
+    printf("==============================================================\n");
+    printf("            [ 1. 다시 도전하기 ]    [ 2. 종료하기 ]\n");
+    printf("==============================================================\n");
+    printf("선택: ");
+
+    if (scanf("%d", &choice) != 1) {
+        choice = 2;
+    }
+    while (getchar() != '\n');  // 버퍼 비우기
+
+    if (choice == 1) {
+        // 다시 게임 전체 재시작
+        system("cls");
+        main();        // 🔥 메인 함수 다시 호출해서 로딩/인트로/전투 전부 처음부터
+    } else {
+        // 바로 종료
+        exit(0);
+    }
 }
-
 
 // --------------------------------------------------
 // 학년 필터 + 랜덤 문제 추출
@@ -141,9 +181,11 @@ int askQuizDirectly(BattleState *bs, struct Quiz *q)
     printWrapped(q->question, 45);
 
     FILE* prnormal = fopen("asset/pro_normal.txt", "r");
-    char prnprint[100];
-    while (fgets(prnprint, sizeof(prnprint), prnormal)) printf("%s", prnprint);
-    fclose(prnormal);
+    if (prnormal) {
+        char prnprint[100];
+        while (fgets(prnprint, sizeof(prnprint), prnormal)) printf("%s", prnprint);
+        fclose(prnormal);
+    }
 
     if (bs->student.hintCount > 0) {
         printf("힌트를 사용하시겠습니까? (y/n): ");
@@ -202,9 +244,11 @@ void startBattle(BattleState *bs)
             printBattleStatus(bs);
 
             FILE* prangry = fopen("asset/pro_angry.txt", "r");
-            char praprint[100];
-            while (fgets(praprint, sizeof(praprint), prangry)) printf("%s", praprint);
-            fclose(prangry);
+            if (prangry) {
+                char praprint[100];
+                while (fgets(praprint, sizeof(praprint), prangry)) printf("%s", praprint);
+                fclose(prangry);
+            }
 
             printf("정답! 교수님에게 5 데미지를 주었습니다!\n");
         }
@@ -216,9 +260,11 @@ void startBattle(BattleState *bs)
             printBattleStatus(bs);
 
             FILE* prhappy = fopen("asset/pro_happy.txt", "r");
-            char prhprint[100];
-            while (fgets(prhprint, sizeof(prhprint), prhappy)) printf("%s", prhprint);
-            fclose(prhappy);
+            if (prhappy) {
+                char prhprint[100];
+                while (fgets(prhprint, sizeof(prhprint), prhappy)) printf("%s", prhprint);
+                fclose(prhappy);
+            }
 
             printf(" 오답! 학생이 5 데미지를 받았습니다!\n");
         }
@@ -255,5 +301,7 @@ void startBattle(BattleState *bs)
         if (bs->currentQuiz >= bs->quizCount) break;
     }
 
+    // 🔥 전투 끝나면 엔딩 + 재도전 처리
     showResult(bs);
 }
+
