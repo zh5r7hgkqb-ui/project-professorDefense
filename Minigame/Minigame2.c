@@ -27,7 +27,7 @@ int miniGame2_UpDown()
     // ⭐⭐ ASCII 출력 넣는 부분 ⭐⭐
     system("cls");
     printAscii("asset/updown.txt");   // ← 업다운 아트 표시
-    Sleep(1500);
+    Sleep(2500);
     system("cls");
     // ⭐⭐ 끝 ⭐⭐
     
