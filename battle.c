@@ -73,6 +73,9 @@ void showResult(const BattleState *bs)
         }
         fclose(failure);
         printf("\n 패배... 교수님의 강의는 너무 어려웠다.\n");
+        Sleep(3000);
+        
+        system("cls");
     }
     else if (bs->professor.hp <= 0) {
         FILE *success=fopen("asset/success.txt","r");
@@ -83,13 +86,29 @@ void showResult(const BattleState *bs)
         fclose(success);
         printf("\n 승리! 교수님을 무찔렀다!\n");
         printf(" 당신의 학점을 지켜냈습니다!\n");
+
+     
+        Sleep(3000);
+        
+        system("cls");
     }
     else {
         printf("모든 문제를 풀었지만 교수님을 쓰러뜨리진 못했습니다!\n");
+        Sleep(3000);
+        
+        system("cls");
     }
 
+    
     printf("=======================================\n");
+    printf("   게임이 종료되었습니다.\n");
+    printf("=======================================\n");
+    printf("엔터를 누르면 종료됩니다...");
+
+    getchar();  
+    getchar();
 }
+
 
 // --------------------------------------------------
 // 학년 필터 + 랜덤 문제 추출
