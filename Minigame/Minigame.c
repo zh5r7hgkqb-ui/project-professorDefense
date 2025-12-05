@@ -20,7 +20,7 @@ int TimeGame() {
     // ===============================
     system("cls");
     printAscii("asset/timegame.txt");
-    Sleep(1500);
+    Sleep(2500);
     system("cls");
 
     // ===============================
