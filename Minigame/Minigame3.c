@@ -40,7 +40,7 @@ int minigame_minesweeper() {
     // ⭐⭐ ASCII 넣는 부분 ⭐⭐
     system("cls");
     printAscii("asset/minesweeper.txt");
-    Sleep(1500);
+    Sleep(2500);
     system("cls");
     // ⭐⭐ 끝 ⭐⭐
 
