@@ -63,11 +63,19 @@ int minigame_minesweeper() {
         if (!mines_open(&g, r, c)) {
             printf("\n 지뢰를 밟았습니다! (Game Over)\n");
             gameOver = 1;
+            
+            printAscii("asset/itemfail.txt");
+            Sleep(2500);
+
             return 0;
         }
 
         if (mines_checkWin(&g)) {
             printf("\n 승리했습니다!(Win!)\n");
+
+             printAscii("asset/itemsuccess.txt");
+             Sleep(2500);
+            
             return 1;
         }
     }

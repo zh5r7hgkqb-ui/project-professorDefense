@@ -58,10 +58,18 @@ int miniGame_Sequence()
     for (int i = 0; i < length; i++) {
         if (seq[i] != answer[i]) {
             printf("\n❌ 틀렸습니다!\n");
+            
+            printAscii("asset/itemfail.txt");
+            Sleep(2500);
+            
             return 0;   // 실패
         }
     }
 
     printf("\n🎉 성공! 완벽하게 기억했습니다!\n");
+
+    printAscii("asset/itemsuccess.txt");
+    Sleep(2500);
+
     return 1; // 성공
 }

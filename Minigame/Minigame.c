@@ -106,12 +106,20 @@ int TimeGame() {
         printf("                  성공! 정확한 타이밍입니다!                   \n");
         printf("                  아이템 보상을 획득합니다.                    \n");
         printf("└────────────────────────────────────────────────────────────┘\n");
+
+        printAscii("asset/itemsuccess.txt");
+        Sleep(2500);
+        
         return 1;
     }
     else {
         printf("                  실패! 다시 도전해보세요!                     \n");
         printf("               정확도 ±0.10초 이내여야 성공입니다              \n");
         printf("└────────────────────────────────────────────────────────────┘\n");
+
+        printAscii("asset/itemfail.txt");
+        Sleep(2500);
+
         return 0;
     }
 }
