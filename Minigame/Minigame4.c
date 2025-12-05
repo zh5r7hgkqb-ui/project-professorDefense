@@ -21,7 +21,7 @@ int miniGame_Sequence()
    //  ASCII 아트 출력
     system("cls");
     printAscii("asset/sequence.txt");   // ← 파일만 만들면 됨
-    Sleep(1500);
+    Sleep(2500);
     system("cls");
     //  여기까지 아스키 아트 
 
