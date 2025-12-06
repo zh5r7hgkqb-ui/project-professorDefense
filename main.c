@@ -16,7 +16,23 @@ void typeWriter(const char* text, int delay) {
     }
 }
 
+// 깜빡이는 테스트 효과 함수
+void blinkingText(const char* text) {
+    for (int i = 0; i < 6; i++) {
 
+        printf("%s", text);   // 보이기
+        fflush(stdout);
+        Sleep(700);          
+
+        printf("\r");
+        printf("                                                       ");
+        printf("\r");
+        fflush(stdout);
+        Sleep(700);          
+    }
+
+    printf("%s\n", text);     // 마지막에 고정 출력
+}
 // -------------------------------------------
 // 로딩 씬 출력 함수
 void showLoadingScene() {
@@ -74,9 +90,8 @@ void showIntro() {
     typeWriter("▶ 교수님의 체력을 0으로 만들어 학점을 되찾아라!\n\n", 40);
 
     printf("==============================================================\n");
-    printf("             계속하려면 Enter 키를 누르세요...\n");
-
-    getchar();  // 엔터 입력 대기 (인트로 끝)
+    blinkingText("        ▶ 계속하려면 Enter 키를 누르세요 ◀        ");
+    getchar()
 }
 
 
@@ -187,6 +202,7 @@ int main(void) {
 
     return 0;
 }
+
 
 
 
