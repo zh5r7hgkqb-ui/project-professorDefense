@@ -78,7 +78,7 @@ int askQuestion(BattleState *bs, int index)
 // 전투 상태 출력
 void printBattleStatus(const BattleState *bs)
 {
-    printf("\n===========================================================\n");
+    printf("===========================================================\n");
 
     printf("학생 HP: ");
     printHpBar(bs->student.hp, bs->student.maxHp);
@@ -258,7 +258,7 @@ void startBattle(BattleState *bs)
             system("cls");
             int randmini = rand() % 5 + 1;
             int result;
-            
+           
             switch(randmini){
             case 1: result = miniGame_Sequence(); break;
             case 2: result = miniGame2_UpDown(); break;
