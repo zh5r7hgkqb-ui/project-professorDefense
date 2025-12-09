@@ -35,32 +35,10 @@ int TimeGame() {
     printf("\n               준비되면 아무 키나 누르세요...\n");
 
     _getch();
-    system("cls");
-
-    // ===============================
-    // 카운트다운
-    // ===============================
-    for (int i = 3; i >= 1; i--) {
-        system("cls");
-        printf("\n\n\n");
-        printf("                             %d\n", i);
-        printf("\n\n\n");
-        Sleep(800);
-    }
 
     system("cls");
-<<<<<<< HEAD
+
     printf("🔥 타이머 시작!\n");
-
-   FILE* timer = fopen("asset/timer.txt", "r");
-		char timerprint[100];
-		while (fgets(timerprint, sizeof(timerprint), timer)) {
-			printf("%s", timerprint);
-		}
-		fclose(timer);
-
-    clock_t start = clock(); 
-=======
     printf("\n\n\n");
     printf("                           START!\n");
     printf("\n\n\n");
@@ -73,14 +51,20 @@ int TimeGame() {
     printf("┌────────────────────────────────────────────────────────────┐\n");
     printf("                         실시간 타이머                        \n");
     printf("                                                               \n");
-    printf("                        목표 : 10.00초                       \n");
-    printf("                                                               \n");
     printf("              스페이스바를 누르면 타이머가 멈춥니다            \n");
     printf("└────────────────────────────────────────────────────────────┘\n");
 
+    FILE* timer = fopen("asset/timer.txt", "r");
+		char timerprint[100];
+		while (fgets(timerprint, sizeof(timerprint), timer)) {
+			printf("%s", timerprint);
+		}
+		fclose(timer);
+
+    
     // 초기 시간 표시 제거
     clock_t start = clock();
->>>>>>> 0842a3e18f6082ba83a8b229132c048fea7f6e77
+
 
     // ===============================
     // 타이머 실시간 업데이트
@@ -91,20 +75,12 @@ int TimeGame() {
                 break;
         }
 
-<<<<<<< HEAD
         clock_t now = clock();
         double elapsed = (double)(now - start) / CLOCKS_PER_SEC;
 
         // 커서를 "⏱ 현재 시간:" 있는 줄로 이동시켜 한 줄만 업데이트
-        gotoxy(9, 5);
+        gotoxy(13, 10);
         printf("%5.2f", elapsed);
-=======
-        double elapsed = (double)(clock() - start) / CLOCKS_PER_SEC;
->>>>>>> 0842a3e18f6082ba83a8b229132c048fea7f6e77
-
-        gotoxy(0, 10);
-        printf("현재 시간: %.2f초      ", elapsed);
-        fflush(stdout);
 
         Sleep(10);
     }
@@ -115,15 +91,12 @@ int TimeGame() {
     system("cls");
     double result = (double)(clock() - start) / CLOCKS_PER_SEC;
 
-<<<<<<< HEAD
-    gotoxy(0,10);
-    printf("\n\n⏱ 최종 기록: %.2f 초\n", result);
 
      //  여기만 수정됨 — 성공/실패 return 추가
 if (result >= 9.90 && result <= 10.10) {
         printf("🎉 성공! 정확합니다!\n");
         return 1;   // 성공 반환
-=======
+
     printf("┌────────────────────────────────────────────────────────────┐\n");
     printf("                           결과 화면                           \n");
     printf("--------------------------------------------------------------\n");
@@ -142,7 +115,7 @@ if (result >= 9.90 && result <= 10.10) {
         Sleep(2500);
         
         return 1;
->>>>>>> 0842a3e18f6082ba83a8b229132c048fea7f6e77
+
     }
     else {
         printf("                  실패! 다시 도전해보세요!                     \n");
@@ -154,5 +127,6 @@ if (result >= 9.90 && result <= 10.10) {
 
         return 0;
     }
+}
 }
 

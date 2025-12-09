@@ -292,11 +292,7 @@ void startBattle(BattleState *bs)
 
             int randmini = rand() % 5 + 1;
             int result;
-<<<<<<< HEAD
-           
-=======
 
->>>>>>> 0842a3e18f6082ba83a8b229132c048fea7f6e77
             switch(randmini){
             case 1: result = miniGame_Sequence(); break;
             case 2: result = miniGame2_UpDown(); break;
