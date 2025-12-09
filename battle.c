@@ -199,7 +199,12 @@ int askQuizDirectly(BattleState *bs, struct Quiz *q)
 
     char ans[100];
     printf("정답 입력: ");
-    scanf("%s", ans);
+    if (fgets(ans, sizeof(ans), stdin) != NULL) {
+        size_t len = strlen(ans);
+        if (len > 0 && ans[len - 1] == '\n') {
+            ans[len - 1] = '\0'; 
+        }
+    }
 
     if (strcmp(ans, q->answer) == 0) {
         printf("정답!\n");
@@ -319,4 +324,5 @@ void startBattle(BattleState *bs)
     // 🔥 전투 끝나면 엔딩 + 재도전 처리
     showResult(bs);
 }
+
 
