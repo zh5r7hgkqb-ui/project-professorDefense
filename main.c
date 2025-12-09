@@ -19,7 +19,6 @@ void typeWriter(const char* text, int delay) {
         //키 입력 감지
         if (_kbhit()) {
             _getch(); 
-            
             // 스킵 플래그를 활성화
             skip_active = 1; 
             printf("%s", text);
@@ -32,7 +31,7 @@ void typeWriter(const char* text, int delay) {
         text++;
     }
 }
-
+}
 // 깜빡이는 테스트 효과 함수
 void blinkingText(const char* text) {
     for (int i = 0; i < 6; i++) {
@@ -220,6 +219,7 @@ int main(void) {
 
     return 0;
 }
+
 
 
 
