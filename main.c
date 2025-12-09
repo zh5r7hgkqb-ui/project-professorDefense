@@ -91,7 +91,8 @@ void showLoadingScene() {
 void showIntro() {
     printf("==============================================================\n");
     printf("                        [ 학점의 역습 ]\n\n");
-
+    printf("              (인트로를 건너뛰려면 Enter를 누르세요)\n\n");
+    
     typeWriter("충북대 컴퓨터공학과 학생인 당신…\n", 20);
     typeWriter("이번 학기에 악명 높은 '그 교수님'의 수업을 듣게 되었다!\n\n", 20);
 
@@ -219,6 +220,7 @@ int main(void) {
 
     return 0;
 }
+
 
 
 
