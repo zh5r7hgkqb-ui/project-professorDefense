@@ -5,10 +5,27 @@
 #include <locale.h>
 #include <windows.h>
 
+int skip_active = 0;
 // 글자 하나씩 찍어주는 타자기 효과 함수
-
 void typeWriter(const char* text, int delay) {
+    //스킵 플레그
     while (*text) {
+        if (skip_active) {
+        printf("%s", text);
+        fflush(stdout);
+        return;
+    }
+    while (*text) {
+        //키 입력 감지
+        if (_kbhit()) {
+            _getch(); 
+            
+            // 스킵 플래그를 활성화
+            skip_active = 1; 
+            printf("%s", text);
+            fflush(stdout);
+            return; // 현재 typeWriter 종료
+        }
         putchar(*text);
         fflush(stdout);
         Sleep(delay);
@@ -170,7 +187,7 @@ int main(void) {
     SetConsoleOutputCP(CP_UTF8);
     SetConsoleCP(CP_UTF8);
     // ========================================
-
+    skip_active = 0;
     system("cls");
     showLoadingScene(); // 로딩 씬 출력
     Sleep(2000);
@@ -202,6 +219,7 @@ int main(void) {
 
     return 0;
 }
+
 
 
 
