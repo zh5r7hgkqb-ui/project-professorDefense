@@ -27,7 +27,7 @@ int miniGame2_UpDown()
     // ⭐⭐ ASCII 출력 넣는 부분 ⭐⭐
     system("cls");
     printAscii("asset/updown.txt");   // ← 업다운 아트 표시
-    Sleep(1500);
+    Sleep(2500);
     system("cls");
     // ⭐⭐ 끝 ⭐⭐
     
@@ -56,6 +56,9 @@ int miniGame2_UpDown()
         if (guess == secretNumber) {
             printf("\n🎉 성공! %d번 만에 정답 %d을 맞혔습니다!\n",
                    attempts, secretNumber);
+            
+            printAscii("asset/itemsuccess.txt");
+            Sleep(2500);
 
             return 1;   // ⭐ 성공 → 보상은 battle.c에서 처리
         }
@@ -78,6 +81,9 @@ int miniGame2_UpDown()
     printf("\n❌ 실패! %d번의 시도 내 정답을 맞히지 못했습니다.\n",
            MAX_ATTEMPTS);
     printf("정답은 %d이었습니다.\n", secretNumber);
-
+   
+    printAscii("asset/itemfail.txt");
+    Sleep(2500);
+    
     return 0;  // 실패
 }

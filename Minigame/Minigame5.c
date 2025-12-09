@@ -50,7 +50,7 @@ int RockPaperScissor() {
 	if(flag){
     system("cls");
     printAscii("asset/rockpaperscissor.txt");    // 넣고 싶은 아트 파일명
-    Sleep(1500);
+    Sleep(2500);
     system("cls");
 	}
     // ⭐⭐⭐ 끝 ⭐⭐⭐
@@ -94,16 +94,52 @@ int RockPaperScissor() {
 	else{
 		switch (cur) {
 		case 1:
-			if (random == 2) {printf("\n\n\n	       !!!졌다!!!\n	- 자네, 가위바위보 재수강이네. -\n\n\n"); return 1;}
-			else {printf("\n\n\n	       !!!이겼다!!!\n       - 자네, 가위바위보 전공인가? -\n\n\n"); return 0;}
+			if (random == 2) {printf("\n\n\n	       !!!졌다!!!\n	- 자네, 가위바위보 재수강이네. -\n\n\n");
+							  
+							   printAscii("asset/itemfail.txt");  // 실패 아트 출력
+                               Sleep(2500);   
+							  
+							  
+							  return 1;}
+			else {printf("\n\n\n	       !!!이겼다!!!\n       - 자네, 가위바위보 전공인가? -\n\n\n"); 
+				  
+				              printAscii("asset/itemsuccess.txt");
+                              Sleep(2500);
+				  
+				              return 0;}
 			break;
 		case 2:
-			if (random == 3) {printf("\n\n\n	       !!!졌다!!!\n	- 자네, 가위바위보 재수강이네. -\n\n\n"); return 1;}
-			else {printf("\n\n\n	       !!!이겼다!!!\n       - 자네, 가위바위보 전공인가? -\n\n\n"); return 0;}
+			if (random == 3) {printf("\n\n\n	       !!!졌다!!!\n	- 자네, 가위바위보 재수강이네. -\n\n\n"); 
+							  
+							  
+							  printAscii("asset/itemfail.txt");  // 실패 아트 출력
+                              Sleep(2500); 
+							  
+							  return 1;}
+			else {printf("\n\n\n	       !!!이겼다!!!\n       - 자네, 가위바위보 전공인가? -\n\n\n"); 
+				  
+				  
+				              printAscii("asset/itemsuccess.txt");
+                              Sleep(2500);
+							  
+				  
+				  
+				              return 0;}
 			break;
 		case 3:
-			if (random == 1) {printf("\n\n\n	       !!!졌다!!!\n	- 자네, 가위바위보 재수강이네. -\n\n\n"); return 1;}
-			else {printf("\n\n\n	       !!!이겼다!!!\n       - 자네, 가위바위보 전공인가? -\n\n\n"); return 0;}
+			if (random == 1) {printf("\n\n\n	       !!!졌다!!!\n	- 자네, 가위바위보 재수강이네. -\n\n\n"); 
+							  
+							  printAscii("asset/itemfail.txt");  // 실패 아트 출력
+                              Sleep(2500); 
+							  
+							  return 1;}
+			else {printf("\n\n\n	       !!!이겼다!!!\n       - 자네, 가위바위보 전공인가? -\n\n\n");
+				  
+				  
+				              printAscii("asset/itemsuccess.txt");
+                              Sleep(2500);
+				  
+				              return 0;}
 			break;
 		}
 	}

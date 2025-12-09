@@ -5,6 +5,96 @@
 #include <locale.h>
 #include <windows.h>
 
+// 글자 하나씩 찍어주는 타자기 효과 함수
+
+void typeWriter(const char* text, int delay) {
+    while (*text) {
+        putchar(*text);
+        fflush(stdout);
+        Sleep(delay);
+        text++;
+    }
+}
+
+// 깜빡이는 테스트 효과 함수
+void blinkingText(const char* text) {
+    for (int i = 0; i < 6; i++) {
+
+        printf("%s", text);   // 보이기
+        fflush(stdout);
+        Sleep(700);          
+
+        printf("\r");
+        printf("                                                       ");
+        printf("\r");
+        fflush(stdout);
+        Sleep(700);          
+    }
+
+    printf("%s\n", text);     // 마지막에 고정 출력
+}
+// -------------------------------------------
+// 로딩 씬 출력 함수
+void showLoadingScene() {
+    system("cls");
+
+    printf(
+"               ██████╗      █████╗     ███╗   ███╗    ███████╗\n"
+"              ██╔════╝     ██╔══██╗    ████╗ ████║    ██╔════╝\n"
+"              ██║  ███╗    ███████║    ██╔████╔██║    █████╗  \n"
+"              ██║   ██║    ██╔══██║    ██║╚██╔╝██║    ██╔══╝  \n"
+"              ╚██████╔╝    ██║  ██║    ██║ ╚═╝ ██║    ███████╗\n"
+"               ╚═════╝     ╚═╝  ╚═╝    ╚═╝     ╚═╝    ╚══════╝\n"
+"\n"
+"                         [   학 점   수 호 대   ]\n"
+"\n"
+"       ╔══════════════════════════════════════════════════════════╗\n"
+"       ║                                                          ║\n"
+"       ║          교수님이 시험문제를 준비하고 있습니다…          ║\n"
+"       ║                                                          ║\n"
+"       ╚══════════════════════════════════════════════════════════╝\n"
+"\n"
+    );
+
+    printf("                         잠시만 기다려 주세요"); 
+    Sleep(1800);
+
+    printf("."); 
+    Sleep(1800);
+
+    printf("."); 
+    Sleep(1800);
+
+    printf(".\n");  // 마지막에만 개행
+    Sleep(500);
+}
+
+// -------------------------------------------
+
+void showIntro() {
+    printf("==============================================================\n");
+    printf("                        [ 학점의 역습 ]\n\n");
+
+    typeWriter("충북대 컴퓨터공학과 학생인 당신…\n", 20);
+    typeWriter("이번 학기에 악명 높은 '그 교수님'의 수업을 듣게 되었다!\n\n", 20);
+
+    typeWriter("교수님은 학생들에게 학점을 쉽게 주지 않기로 유명하다.\n", 20);
+    typeWriter("매 시간마다 점점 더 어려워지는 문제를 내며,\n", 20);
+    typeWriter("학생들의 정신과 체력을 갉아먹고 있다…\n\n", 20);
+
+    typeWriter("하지만 이번 학기만큼은…\n", 20);
+    typeWriter("당신의 학점을 지켜내기 위해 도전해야 한다!\n\n", 20);
+
+    typeWriter("▶ 문제를 풀어 지식을 모아라!\n", 40);
+    typeWriter("▶ 아이템을 획득해 위기를 넘겨라!\n", 40);
+    typeWriter("▶ 교수님의 체력을 0으로 만들어 학점을 되찾아라!\n\n", 40);
+
+    printf("==============================================================\n");
+    blinkingText("        ▶ 계속하려면 Enter 키를 누르세요 ◀        ");
+    getchar();
+}
+
+
 // -------------------------------------------
 // 난수 초기화
 // -------------------------------------------
@@ -59,7 +149,7 @@ void initGame(BattleState *bs) {
 
     // 교수님 초기값 설정 (학년별 난이도 조정)
     snprintf(bs->professor.name, sizeof(bs->professor.name), "교수님");
-    bs->professor.maxHp = 20 + (bs->student.grade - 1) * 10;
+    bs->professor.maxHp = 30;
     bs->professor.hp = bs->professor.maxHp;
 
     printf("\n 학생 %s (%d학년) 전투를 준비하세요!\n",
@@ -74,13 +164,19 @@ void initGame(BattleState *bs) {
 int main(void) {
 
     // ========================================
-    //  한글 깨짐 해결 (이 3줄이 핵심)
+    //  한글 깨짐 해결 
     // ========================================
     setlocale(LC_ALL, "ko_KR.UTF-8");
     SetConsoleOutputCP(CP_UTF8);
     SetConsoleCP(CP_UTF8);
     // ========================================
 
+    system("cls");
+    showLoadingScene(); // 로딩 씬 출력
+    Sleep(2000);
+    system("cls");
+    showIntro(); // 인트로 출력
+    
     BattleState game;
 
     initRandomSeed();  // 난수 초기화
@@ -102,7 +198,13 @@ int main(void) {
     // 메모리 해제
     freeQuizList(game.quizList);
 
+
+
     return 0;
 }
+
+
+
+
 
 

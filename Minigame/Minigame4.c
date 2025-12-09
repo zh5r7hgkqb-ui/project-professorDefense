@@ -21,7 +21,7 @@ int miniGame_Sequence()
    //  ASCII 아트 출력
     system("cls");
     printAscii("asset/sequence.txt");   // ← 파일만 만들면 됨
-    Sleep(1500);
+    Sleep(2500);
     system("cls");
     //  여기까지 아스키 아트 
 
@@ -58,10 +58,18 @@ int miniGame_Sequence()
     for (int i = 0; i < length; i++) {
         if (seq[i] != answer[i]) {
             printf("\n❌ 틀렸습니다!\n");
+            
+            printAscii("asset/itemfail.txt");
+            Sleep(2500);
+            
             return 0;   // 실패
         }
     }
 
     printf("\n🎉 성공! 완벽하게 기억했습니다!\n");
+
+    printAscii("asset/itemsuccess.txt");
+    Sleep(2500);
+
     return 1; // 성공
 }
