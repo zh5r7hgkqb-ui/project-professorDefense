@@ -4,6 +4,8 @@
 #include "gameutils.h"
 #include <locale.h>
 #include <windows.h>
+#include <conio.h>
+
 
 int skip_active = 0;
 // 글자 하나씩 찍어주는 타자기 효과 함수
