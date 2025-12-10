@@ -100,13 +100,13 @@ int RockPaperScissor() {
                                Sleep(2500);   
 							  
 							  
-							  return 1;}
+							  return 0;}
 			else {printf("\n\n\n	       !!!이겼다!!!\n       - 자네, 가위바위보 전공인가? -\n\n\n"); 
 				  
 				              printAscii("asset/itemsuccess.txt");
                               Sleep(2500);
 				  
-				              return 0;}
+				              return 1;}
 			break;
 		case 2:
 			if (random == 3) {printf("\n\n\n	       !!!졌다!!!\n	- 자네, 가위바위보 재수강이네. -\n\n\n"); 
@@ -115,7 +115,7 @@ int RockPaperScissor() {
 							  printAscii("asset/itemfail.txt");  // 실패 아트 출력
                               Sleep(2500); 
 							  
-							  return 1;}
+							  return 0;}
 			else {printf("\n\n\n	       !!!이겼다!!!\n       - 자네, 가위바위보 전공인가? -\n\n\n"); 
 				  
 				  
@@ -124,7 +124,7 @@ int RockPaperScissor() {
 							  
 				  
 				  
-				              return 0;}
+				              return 1;}
 			break;
 		case 3:
 			if (random == 1) {printf("\n\n\n	       !!!졌다!!!\n	- 자네, 가위바위보 재수강이네. -\n\n\n"); 
@@ -132,14 +132,14 @@ int RockPaperScissor() {
 							  printAscii("asset/itemfail.txt");  // 실패 아트 출력
                               Sleep(2500); 
 							  
-							  return 1;}
+							  return 0;}
 			else {printf("\n\n\n	       !!!이겼다!!!\n       - 자네, 가위바위보 전공인가? -\n\n\n");
 				  
 				  
 				              printAscii("asset/itemsuccess.txt");
                               Sleep(2500);
 				  
-				              return 0;}
+				              return 1;}
 			break;
 		}
 	}
