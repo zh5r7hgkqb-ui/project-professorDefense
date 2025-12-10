@@ -14,7 +14,7 @@ int miniGame_Sequence()
 
     srand((unsigned int)time(NULL));
 
-    int length = 5;
+    int length = 8;
     int seq[10];
     int answer[10];
     

@@ -222,11 +222,14 @@ int askQuizDirectly(BattleState *bs, struct Quiz *q)
 // 전투 루프
 void startBattle(BattleState *bs)
 {
-    // 🔥 교수 HP 30 고정
+    // 교수 HP 30 고정
     bs->professor.maxHp = 30;
     bs->professor.hp    = 30;
 
     bs->correctStreak = 0;
+
+    bs->bonusDamage = 0;   //  추가됨: 단검 지속 데미지 저장 변수
+
     printf("\n전투 시작! 교수님이 나타났다!\n");
     
     while (bs->student.hp > 0 && bs->professor.hp > 0)
@@ -243,7 +246,16 @@ void startBattle(BattleState *bs)
 
         if (correct) {
             bs->correctStreak++;
-            bs->professor.hp -= 5;
+
+            int dmg = 5;  // 기본 공격력
+
+            //  추가됨: 급습의 단검 효과는 전투가 끝날 때까지 계속 +10 데미지
+            if (bs->bonusDamage > 0) {
+                printf("⚔️ 급습의 단검 효과! +%d 추가 데미지!\n", bs->bonusDamage);
+                dmg += bs->bonusDamage;
+            }
+
+            bs->professor.hp -= dmg;
             if (bs->professor.hp < 0) bs->professor.hp = 0;
 
             printBattleStatus(bs);
@@ -255,7 +267,7 @@ void startBattle(BattleState *bs)
                 fclose(prangry);
             }
 
-            printf("정답! 교수님에게 5 데미지를 주었습니다!\n");
+            printf("정답! 교수님에게 %d 데미지를 주었습니다!\n", dmg);
         }
         else {
             bs->correctStreak = 0;
@@ -274,26 +286,21 @@ void startBattle(BattleState *bs)
             printf(" 오답! 학생이 5 데미지를 받았습니다!\n");
         }
 
+        // 3연속 정답 → 미니게임
         if (bs->correctStreak >= 3 && bs->professor.hp > 0) {
             system("cls");
             printf("\n✨ 3회 연속 정답! 미니게임이 등장합니다!\n");
-            
-             FILE *mg = fopen("asset/minigame.txt", "r");
-             if (mg) {
-             char line[4096];
-             while (fgets(line, sizeof(line), mg)) {
-            printf("%s", line);
-             }
-             fclose(mg);
-           } else {
-             printf("[minigame.txt 파일을 찾을 수 없습니다]\n\n");
-           }
+
+            FILE *mg = fopen("asset/minigame.txt", "r");
+            if (mg) {
+                char line[4096];
+                while (fgets(line, sizeof(line), mg)) printf("%s", line);
+                fclose(mg);
+            }
 
             printf("\n잠시 후 미니게임이 시작됩니다...\n");
             Sleep(3500);
-
             system("cls");
-
 
             int randmini = rand() % 5 + 1;
             int result;
@@ -308,9 +315,16 @@ void startBattle(BattleState *bs)
 
             if (result == 1) {
                 printf("미니게임 성공!\n");
-                dropItem(&bs->student);
-            }
-            else {
+
+                int effect = dropItem(&bs->student);
+
+                //  추가: 급습의 단검 지속 효과 적용
+                if (effect == 3) {
+                    bs->bonusDamage += 10;   // 지속 버프 (누적 가능)
+                    printf("⚔️ 급습의 단검 획득! 이제부터 모든 공격에 +10 데미지!\n");
+                }
+
+            } else {
                 printf("미니게임 실패! 보상 없음.\n");
             }
 
@@ -321,8 +335,8 @@ void startBattle(BattleState *bs)
         if (bs->currentQuiz >= bs->quizCount) break;
     }
 
-    // 🔥 전투 끝나면 엔딩 + 재도전 처리
     showResult(bs);
 }
+
 
 

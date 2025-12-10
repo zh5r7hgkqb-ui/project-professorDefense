@@ -59,7 +59,9 @@ typedef struct {
     struct Quiz* quizList;       // 퀴즈 배열 (파일에서 로드됨)
     int quizCount;        // 퀴즈 총 개수
     int currentQuiz;      // 현재 진행 중인 문제 인덱스
-int correctStreak;      // 연속 정답 횟수 (미니게임 조건용)
+    int correctStreak;      // 연속 정답 횟수 (미니게임 조건용)
+    int bonusDamage;   // 아이템으로 얻은 교수 추가 데미지
+
 } BattleState;
 
 #endif
