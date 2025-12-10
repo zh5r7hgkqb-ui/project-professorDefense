@@ -36,7 +36,7 @@ void typeWriter(const char* text, int delay) {
 }
 // 깜빡이는 테스트 효과 함수
 void blinkingText(const char* text) {
-    for (int i = 0; i < 6; i++) {
+    for (int i = 0; i < 3; i++) {
 
         printf("%s", text);   // 보이기
         fflush(stdout);
@@ -57,7 +57,7 @@ void showLoadingScene() {
     system("cls");
 
     printf(
-"               ██████╗      █████╗     ███╗   ███╗    ███████╗\n"
+"\n\n\n               ██████╗      █████╗     ███╗   ███╗    ███████╗\n"
 "              ██╔════╝     ██╔══██╗    ████╗ ████║    ██╔════╝\n"
 "              ██║  ███╗    ███████║    ██╔████╔██║    █████╗  \n"
 "              ██║   ██║    ██╔══██║    ██║╚██╔╝██║    ██╔══╝  \n"
