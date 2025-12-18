@@ -263,6 +263,7 @@ void startBattle(BattleState *bs)
             if (bs->bonusDamage > 0) {
                 printf("⚔️ 급습의 단검 효과! +%d 추가 데미지!\n", bs->bonusDamage);
                 dmg += bs->bonusDamage;
+                bs->bonusDamage =0;            
             }
 
             bs->professor.hp -= dmg;
@@ -347,6 +348,7 @@ void startBattle(BattleState *bs)
 
     showResult(bs);
 }
+
 
 
 
