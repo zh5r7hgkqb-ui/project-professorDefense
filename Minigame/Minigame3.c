@@ -42,6 +42,7 @@ int minigame_minesweeper() {
     printAscii("asset/minesweeper.txt");
     Sleep(2500);
     system("cls");
+    fflush(stdout);
     // ⭐⭐ 끝 ⭐⭐
 
     mines_init(&g);

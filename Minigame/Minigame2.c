@@ -29,6 +29,7 @@ int miniGame2_UpDown()
     printAscii("asset/updown.txt");   // ← 업다운 아트 표시
     Sleep(2500);
     system("cls");
+    fflush(stdout);
     // ⭐⭐ 끝 ⭐⭐
     
     printf("======================================\n");
