@@ -209,6 +209,16 @@ int askQuizDirectly(BattleState *bs, struct Quiz *q)
     if (strcmp(ans, q->answer) == 0) {
         printf("정답!\n");
         q->used = 1;
+        
+        int randitem = rand() % 5;
+        if(randitem==0){
+             int effect = dropItem(&bs->student);
+             //  추가: 급습의 단검 지속 효과 적용
+             if (effect == 3) {
+                 bs->bonusDamage += 10;   // 지속 버프 (누적 가능)
+                printf("⚔️ 급습의 단검 획득! 이제부터 모든 공격에 +10 데미지!\n");
+                }
+        }
         return 1;
     }
     else {
@@ -337,6 +347,7 @@ void startBattle(BattleState *bs)
 
     showResult(bs);
 }
+
 
 
 
