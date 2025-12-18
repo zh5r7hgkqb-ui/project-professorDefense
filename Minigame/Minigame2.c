@@ -16,7 +16,7 @@
 int miniGame2_UpDown()
 {
     const int MAX_NUMBER = 100;
-    const int MAX_ATTEMPTS = 8;
+    const int MAX_ATTEMPTS = 7;
 
     int secretNumber;
     int guess;
