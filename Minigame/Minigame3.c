@@ -53,8 +53,12 @@ int minigame_minesweeper() {
     while (!gameOver) {
         mines_print(&g);
         printf("행 열 입력: ");
-        scanf("%d %d", &r, &c);
-
+        if (scanf("%d %d", &r, &c) != 2) {
+        printf("잘못된 입력입니다! 숫자만 입력해주세요.\n");
+            
+        while (getchar() != '\n'); 
+        continue;
+    }
         if (r < 0 || r >= SIZE || c < 0 || c >= SIZE) {
             printf("잘못된 좌표입니다!\n");
             continue;
